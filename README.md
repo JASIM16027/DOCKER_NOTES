@@ -24,6 +24,9 @@
 
 ## Processor
 
+![image](https://github.com/JASIM16027/DOCKER_NOTE/assets/39296494/2c03909d-db29-40dc-8be5-19d8c77a3fa2)
+
+
 ### Register Set
 - A small amount of very fast memory within the CPU.
 - Holds data that the CPU is currently working on or needs frequently.

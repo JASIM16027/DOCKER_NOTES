@@ -76,6 +76,9 @@
 
 #### Background: Virtualization Before Docker
 
+![image](https://github.com/JASIM16027/DOCKER_NOTE/assets/39296494/10074293-35ae-4aca-afe0-f71204cfa1b6)
+
+
 **Hypervisors:**
 - Hypervisors are software, firmware, or hardware that create and manage virtual machines (VMs).
 - They allow multiple VMs to run on a single physical machine by virtualizing the underlying hardware.

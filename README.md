@@ -42,6 +42,9 @@
 
 ## Process (Virtual Computer)
 
+![image](https://github.com/JASIM16027/Docker_Notes/assets/39296494/f6e26763-5def-4583-9aae-8a6e8e8cffb2)
+
+
 ### Process State
 - A process is an instance of a running program.
 - States include running, waiting, or terminated.
@@ -54,6 +57,7 @@
 
 ### Context Switching
 - The process of saving and restoring the state of a process, allowing the CPU to switch between processes.
+- 
 
 ### Process Control Block (PCB)
 - A data structure maintained by the OS for each process.
@@ -247,11 +251,6 @@ This is a Dockerfile, a script that defines the environment and steps needed to 
 
 7. **CMD [ "node", "dist/main.js" ]**
    - This specifies the command to run when the container starts. Here, it runs `node dist/main.js`, which likely starts the Node.js application. `dist/main.js` is presumably the entry point of the built application.
-
-### Summary
-This Dockerfile creates a Docker image for a Node.js application. It uses a minimal Node.js Alpine base image, sets up the working directory, installs dependencies, copies the application code, builds the application, and defines the command to start the application. This setup ensures that the application runs in a consistent environment, regardless of where the container is deployed.
-
-
 
 ## Docker Compose configuration for a microservices architecture:
 

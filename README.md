@@ -201,6 +201,53 @@ Docker is a platform and ecosystem designed to develop, ship, and run applicatio
    - Use the command `docker-compose up -d` to start the application with all defined services.
    - Use `docker-compose down` to stop and remove the application’s containers, networks, and volumes.
 
+
+## Docker Compose configuration for a microservices architecture:
+version: '3.8'
+```
+services:
+  user-service:
+    container_name: user-service
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    env_file:
+      - ./user-service/.env
+    networks:
+      - my-network
+
+  product-service:
+    container_name: product-service
+    build:
+      context: ./product-service
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    env_file:
+      - ./product-service/.env
+    networks:
+      - my-network
+
+  order-service:
+    container_name: order-service
+    build:
+      context: ./order-service
+      dockerfile: Dockerfile
+    ports:
+      - "8083:8083"
+    env_file:
+      - ./order-service/.env
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
+
+```
+
 ### Conclusion
 
 Docker revolutionizes the way applications are developed, shipped, and run by providing a lightweight, efficient, and consistent environment for application execution. Its ecosystem, comprising various tools and services, enhances the capabilities of container management, making it a powerful solution for modern application development and deployment.

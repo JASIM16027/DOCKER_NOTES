@@ -105,7 +105,6 @@
 Docker is a platform and ecosystem designed to develop, ship, and run applications inside containers. It consists of several key components that work together to manage containerized applications efficiently.
 
 
-
 ### Container Management:
 - **docker run**: Create and start a new container from an image.
 - **docker start**: Start one or more stopped containers.
@@ -201,8 +200,31 @@ Docker is a platform and ecosystem designed to develop, ship, and run applicatio
    - Use the command `docker-compose up -d` to start the application with all defined services.
    - Use `docker-compose down` to stop and remove the application’s containers, networks, and volumes.
 
+     
+
+## Dockerfile
+
+```
+
+FROM node:18-alpine
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm ci
+
+COPY . .
+
+RUN npm run build
+
+CMD [ "node", "dist/main.js" ]
+
+
+```
 
 ## Docker Compose configuration for a microservices architecture:
+
 version: '3.8'
 ```
 services:

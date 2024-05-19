@@ -28,6 +28,7 @@
 ![image](https://github.com/JASIM16027/DOCKER_NOTE/assets/39296494/2c03909d-db29-40dc-8be5-19d8c77a3fa2)
 
 
+
 ### Register Set
 - A small amount of very fast memory within the CPU.
 - Holds data that the CPU is currently working on or needs frequently.
@@ -43,6 +44,8 @@
 ## Process (Virtual Computer)
 
 ![image](https://github.com/JASIM16027/Docker_Notes/assets/39296494/f6e26763-5def-4583-9aae-8a6e8e8cffb2)
+
+![image](https://github.com/JASIM16027/Docker_Notes/assets/39296494/5f9559f1-483d-47a5-b633-c06c36de9b1c)
 
 
 ### Process State

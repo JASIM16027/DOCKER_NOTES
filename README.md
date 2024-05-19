@@ -104,6 +104,54 @@
 
 Docker is a platform and ecosystem designed to develop, ship, and run applications inside containers. It consists of several key components that work together to manage containerized applications efficiently.
 
+
+
+### Container Management:
+- **docker run**: Create and start a new container from an image.
+- **docker start**: Start one or more stopped containers.
+- **docker stop**: Stop one or more running containers.
+- **docker restart**: Restart one or more containers.
+- **docker rm**: Remove one or more containers.
+- **docker ps**: List running containers.
+- **docker ps -a**: List all containers (including stopped ones).
+- **docker exec**: Run a command inside a running container.
+- **docker logs**: Fetch the logs of a container.
+
+### Image Management:
+- **docker build**: Build a Docker image from a Dockerfile.
+- **docker pull**: Pull an image or a repository from a registry.
+- **docker push**: Push an image or a repository to a registry.
+- **docker images**: List all locally available images.
+- **docker rmi**: Remove one or more images.
+- **docker tag**: Tag an image with a new name and/or tag.
+
+### Network Management:
+- **docker network create**: Create a new Docker network.
+- **docker network ls**: List Docker networks.
+- **docker network inspect**: Display detailed information on one or more networks.
+- **docker network connect**: Connect a container to a network.
+- **docker network disconnect**: Disconnect a container from a network.
+
+### Volume Management:
+- **docker volume create**: Create a new volume.
+- **docker volume ls**: List Docker volumes.
+- **docker volume inspect**: Display detailed information on one or more volumes.
+- **docker volume rm**: Remove one or more volumes.
+- **docker volume prune**: Remove all unused volumes.
+
+### System Management:
+- **docker info**: Display system-wide information.
+- **docker version**: Show the Docker version information.
+- **docker system df**: Show Docker disk usage.
+- **docker system prune**: Remove unused data (containers, networks, images, volumes).
+- **docker stats**: Display a live stream of container resource usage statistics.
+
+### Registry Management:
+- **docker login**: Log in to a Docker registry.
+- **docker logout**: Log out from a Docker registry.
+- **docker search**: Search for Docker images on Docker Hub.
+- 
+
 #### Components of the Docker Ecosystem
 
 1. **Docker Client:**
@@ -133,6 +181,7 @@ Docker is a platform and ecosystem designed to develop, ship, and run applicatio
    - It simplifies the management of applications that require multiple containers working together.
 
 ### Step-by-Step Explanation of Docker's Functionality
+
 
 1. **Building an Image:**
    - Create a `Dockerfile` with instructions on how to build your application image.

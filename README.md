@@ -614,3 +614,126 @@ Now, you can connect to MySQL on `localhost:4000` from the host machine. Docker 
     ```
 
 By using these commands, you can manage port forwarding and access various database services running inside Docker containers from your host machine.
+
+
+
+### Docker Port Forwarding and Volume Mapping
+
+This guide provides instructions for running Docker containers with port forwarding and volume mapping.
+
+#### Port Forwarding
+
+To forward a port from your host machine to a Docker container, use the following command:
+
+```bash
+docker run -p host_machine_port:container_port image_name
+```
+
+**Example:** To run an Nginx container and forward port 3004 on the host machine to port 80 in the container:
+
+```bash
+docker run -p 3004:80 nginx
+```
+
+When you request `localhost:3004`, the host machine will forward the request to the Nginx container running on port 80.
+
+#### Volume Mapping
+
+Volume mapping allows you to share files between your host machine and a Docker container. Use the following command:
+
+```bash
+docker run -v host_machine_folder_path:container_folder_path image_name
+```
+
+**Example:** To run a MySQL container and map a host directory (`/my/host/data`) to the container's data directory (`/var/lib/mysql`):
+
+```bash
+docker run -v /my/host/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 mysql
+```
+
+#### Combining Port Forwarding and Volume Mapping
+
+You can combine port forwarding and volume mapping in one command:
+
+```bash
+docker run -p host_machine_port:container_port -v host_machine_folder_path:container_folder_path image_name
+```
+
+**Example:** To run a MySQL container, forward port 4000 on the host machine to port 3306 in the container, and map a host directory (`/my/host/data`) to the container's data directory (`/var/lib/mysql`):
+
+```bash
+docker run -p 4000:3306 -v /my/host/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 mysql
+```
+
+With volume mapping, files created in the container will be visible in the mapped directory on the host machine. This allows for easy file sharing and persistent data storage between the host and the container.
+
+
+### Dockerfile
+
+```dockerfile
+# Use the official Node.js image based on Alpine Linux
+FROM node:alpine
+
+# Set the working directory to /app
+WORKDIR /app
+
+# Copy package.json from the host into the container's working directory
+COPY package.json .
+
+# Install dependencies listed in package.json
+RUN npm install
+
+# Copy all the application files from the host into the container's working directory
+COPY . .
+
+# Define the default startup command
+CMD ["npm", "run", "start"]
+```
+
+### Building the Docker Image
+
+To build the Docker image, run the following command:
+
+```bash
+docker build -t example-image:v1 .
+```
+
+### How the Process Works
+
+1. **FROM node:alpine:** The Docker daemon starts by creating a temporary container using the official Node.js image based on Alpine Linux.
+
+2. **WORKDIR /app:** It then sets the working directory to `/app` within the container.
+
+3. **COPY package.json .:** The `package.json` file from the host machine is copied into the container's `/app` directory.
+
+4. **RUN npm install:** This command installs all the dependencies listed in `package.json` within the container.
+
+5. **COPY . .:** All the application files from the host machine are copied into the container's working directory (`/app`).
+
+6. **CMD ["npm", "run", "start"]:** This command specifies the default command to run when a container created from this image is started. It tells the container to start the Node.js application using `npm`.
+
+### Pushing the Docker Image to Docker Hub
+
+To share your Docker image with others, you can push it to a container registry like Docker Hub. Ensure you are logged in to your Docker Hub account using `docker login`.
+
+1. **Tag the image with your username and version:**
+
+   ```bash
+   docker tag example-image:v1 your-username/example-image:v1
+   ```
+
+2. **Push the tagged image to Docker Hub:**
+
+   ```bash
+   docker push your-username/example-image:v1
+   ```
+
+### Summary
+
+- **Build the Image:** The `docker build` command compiles the Dockerfile into an image.
+- **FROM Directive:** Starts from a base image (Node.js based on Alpine Linux).
+- **WORKDIR:** Sets the working directory in the container.
+- **COPY:** Copies files from the host into the container.
+- **RUN npm install:** Installs dependencies.
+- **CMD:** Specifies the command to run the application.
+- **Push to Docker Hub:** Tags and pushes the image to Docker Hub for sharing.

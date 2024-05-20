@@ -486,3 +486,131 @@ In summary, Docker containers are optimal for scenarios where resource efficienc
 ### Difference between host/normal user and root user
 - **Normal User:** Limited permissions, cannot perform certain administrative tasks.
 - **Root User:** Administrative privileges, can access and modify system files, install software, and make system-wide changes.
+
+
+### Docker Port Forwarding
+
+Each computer has its own localhost and ports. Docker containers, being virtual machines, also have their own localhost and ports. To access services running inside Docker containers from the host machine, you need to perform port forwarding.
+
+#### Accessing a MySQL Container
+
+To connect to a MySQL database running inside a Docker container, you must map a port on the host machine to the container's port. Here’s how to do it:
+
+1. **Run the MySQL container with port forwarding:**
+   ```bash
+   docker run -p host_machine_port:container_port -e MYSQL_ROOT_PASSWORD=your_password mysql
+   ```
+   Example:
+   ```bash
+   docker run -p 4000:3306 -e MYSQL_ROOT_PASSWORD=123456 mysql
+   ```
+
+2. **Enter the running container:**
+   ```bash
+   docker exec -it <container_id> sh
+   ```
+
+3. **Access MySQL inside the container:**
+   ```bash
+   mysql -u <MYSQL_USER> -p
+   ```
+
+Now, you can connect to MySQL on `localhost:4000` from the host machine. Docker will forward the request to the container's port `3306`.
+
+#### MongoDB
+
+1. **Start the MongoDB container with port forwarding:**
+   ```bash
+   sudo docker run -dp 27017:27017 -v local-mongo:/data/db --name local-mongo --restart=always mongo
+   ```
+
+2. **Enter the MongoDB container:**
+   ```bash
+   sudo docker exec -it local-mongo sh
+   ```
+
+3. **Start the MongoDB shell:**
+   ```bash
+   mongo
+   ```
+
+#### Redis
+
+1. **Stop Redis server:**
+   ```bash
+   /etc/init.d/redis-server stop
+   ```
+
+2. **Start Redis server:**
+   ```bash
+   /etc/init.d/redis-server start
+   ```
+
+3. **Restart Redis server:**
+   ```bash
+   /etc/init.d/redis-server restart
+   ```
+
+#### PostgreSQL
+
+1. **Start the PostgreSQL container with port forwarding:**
+   ```bash
+   sudo docker run -p 4000:5432 -e POSTGRES_PASSWORD=123456 postgres
+   ```
+
+2. **Enter the PostgreSQL container:**
+   ```bash
+   sudo docker exec -it <container_id> sh
+   ```
+
+3. **Access PostgreSQL CLI:**
+   ```bash
+   psql -U postgres
+   ```
+
+4. **Create a database inside the container:**
+   ```sql
+   CREATE DATABASE mydatabase;
+   ```
+
+5. **Create a user with a password:**
+   ```sql
+   CREATE ROLE myuser WITH LOGIN PASSWORD 'mypassword';
+   ```
+
+6. **Grant privileges to the user on the database:**
+   ```sql
+   GRANT ALL PRIVILEGES ON DATABASE mydatabase TO myuser;
+   ```
+
+7. **Show all databases:**
+   ```sql
+   \l
+   ```
+
+8. **Connect to a specific database:**
+   ```sql
+   \c database_name
+   ```
+
+9. **Show all tables:**
+   ```sql
+   \dt
+   ```
+
+10. **Access a specific schema:**
+    ```sql
+    \dt schema_name.*
+    ```
+
+11. **Query a specific table:**
+    ```sql
+    SELECT * FROM <table_name>;
+    ```
+
+12. **Exit the CLI:**
+    ```sql
+    \q
+    ```
+
+By using these commands, you can manage port forwarding and access various database services running inside Docker containers from your host machine.

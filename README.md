@@ -6,6 +6,27 @@
 - An operating system (OS) is software that manages computer hardware resources and provides services for computer programs.
 - It acts as an intermediary between the hardware and software, allowing applications to run efficiently and enabling users to interact with the computer.
 
+- An operating system (OS) consists of two primary layers: the application layer and the kernel layer. Each layer has distinct responsibilities and interacts in specific ways to ensure the smooth functioning of the computer system.
+
+### Application Layer
+- **Role**: The application layer serves as the interface between the user and the operating system. It includes all the user-facing applications and utilities that perform various tasks.
+- **Components**: This layer comprises software applications like web browsers, word processors, and media players, as well as system utilities that manage files, configure settings, and monitor system performance.
+- **Functionality**: Applications in this layer rely on the underlying services provided by the kernel to perform their tasks. They request resources and services through system calls, which the kernel processes.
+- **User Interaction**: This layer is where users interact directly with the system, entering commands and receiving outputs.
+
+### Kernel Layer
+- **Role**: The kernel is the core part of the operating system, acting as a bridge between the application layer and the hardware. It manages system resources and facilitates communication between hardware and software.
+- **Components**: The kernel includes several critical components:
+  - **Process Management**: Handles the creation, scheduling, and termination of processes, ensuring efficient CPU utilization.
+  - **Memory Management**: Manages the allocation and deallocation of memory space to processes, and handles paging and segmentation.
+  - **Device Management**: Controls hardware devices through device drivers, ensuring that applications can interact with hardware components like printers, disk drives, and network interfaces.
+  - **File System Management**: Manages data storage, retrieval, and organization on storage devices, providing a structured way to store and access files.
+  - **Security and Access Control**: Enforces security policies, controls access to system resources, and ensures that only authorized processes and users can perform certain actions.
+- **Functionality**: The kernel operates in a privileged mode with full access to all hardware. It handles low-level tasks such as interrupt handling, context switching, and communication between hardware and software components.
+- **Hardware Interaction**: It directly interacts with the hardware through device drivers, translating high-level commands from applications into low-level operations that the hardware can execute.
+
+By maintaining a clear separation between these two layers, operating systems ensure that user applications can run efficiently and securely, while the kernel manages the underlying hardware complexities. This structure also allows for better stability and security, as the kernel can enforce strict access controls and manage system resources effectively.
+
 ### RAM, Hard Disk, Processor
 - **RAM (Random Access Memory):** Temporary storage for data and instructions the CPU needs to access quickly.
 - **Hard Disk:** Non-volatile storage device for long-term data storage on magnetic or solid-state drives.

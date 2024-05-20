@@ -344,6 +344,8 @@ Docker revolutionizes the way applications are developed, shipped, and run by pr
 - Docker is a platform for creating and managing containers.
 - Components: Docker client (CLI), Docker server (daemon), Docker machine, Docker images, Docker Hub, Docker Compose.
 
+  ![image](https://github.com/JASIM16027/Docker_Notes/assets/39296494/6182a53b-3f59-4a52-9cdd-552a6c155d72)
+
 ### Workflow of Docker: "docker run -it <some-image>" - explained
 1. Execute `docker run -it <some-image>` in the terminal.
 2. Docker CLI validates and sends the command to the Docker server.
@@ -370,6 +372,83 @@ Docker revolutionizes the way applications are developed, shipped, and run by pr
 ### What is a Container? (Virtual Computer)
 - A lightweight, isolated runtime environment encapsulating an application and its dependencies.
 - Shares the host OS kernel but has its own isolated file system and resources.
+
+![image](https://github.com/JASIM16027/Docker_Notes/assets/39296494/a9200b60-3b37-4b0f-a4e6-9601515683b4)
+
+
+When comparing Docker containers to virtual machines (VMs), it's essential to understand their fundamental differences, use cases, and advantages.
+
+### Docker Containers
+
+**Overview:**
+- Docker is a platform that uses OS-level virtualization to deliver software in packages called containers.
+- Containers share the host system's kernel but run in isolated user spaces.
+
+**Advantages:**
+1. **Lightweight:** Containers are more lightweight than VMs because they share the host OS kernel, resulting in less overhead.
+2. **Performance:** Since they don't need a full OS to boot, containers can start up and shut down much faster than VMs.
+3. **Portability:** Containers encapsulate all dependencies and configurations, making them highly portable across different environments.
+4. **Resource Efficiency:** Containers use resources more efficiently due to shared OS components and reduced overhead.
+
+**Use Cases:**
+- Microservices architecture
+- Continuous integration/continuous deployment (CI/CD) pipelines
+- Running multiple applications on a single OS instance
+- Development and testing environments
+
+### Virtual Machines (VMs)
+
+**Overview:**
+- VMs run on a hypervisor, which is a software layer that allows multiple operating systems to share a single hardware host.
+- Each VM includes a full operating system and emulated hardware.
+
+**Advantages:**
+1. **Isolation:** VMs offer complete isolation since each VM runs a full OS. This makes them suitable for running multiple, different OS environments on the same physical hardware.
+2. **Compatibility:** VMs can run any operating system that the hypervisor supports, making them more versatile for running different OSes.
+3. **Security:** The full isolation provided by VMs can be beneficial for security-sensitive applications.
+
+**Use Cases:**
+- Running multiple OS instances on a single hardware system
+- Legacy application support
+- Use cases requiring strong isolation between applications
+- Testing and development across different OS environments
+
+### Key Differences
+
+1. **Boot Time:**
+   - **Containers:** Seconds
+   - **VMs:** Minutes
+
+2. **Resource Utilization:**
+   - **Containers:** More efficient, share the host OS kernel
+   - **VMs:** Less efficient, each VM requires a full OS
+
+3. **Isolation:**
+   - **Containers:** Process-level isolation
+   - **VMs:** Full OS-level isolation
+
+4. **Portability:**
+   - **Containers:** Highly portable, suitable for microservices
+   - **VMs:** Less portable, more suited for running different OSes
+
+### Choosing Between Docker and VMs
+
+- **Use Docker if:**
+  - You need a lightweight, fast, and portable solution.
+  - Your applications are designed as microservices.
+  - You require efficient use of system resources.
+  - You need a streamlined development and deployment pipeline.
+
+- **Use VMs if:**
+  - You need strong isolation between applications.
+  - You need to run different operating systems on the same hardware.
+  - Your application requires a full OS environment.
+  - You are dealing with legacy systems or applications.
+
+In summary, Docker containers are optimal for scenarios where resource efficiency, fast deployment, and application portability are critical. In contrast, VMs are more suitable for situations requiring complete isolation and the ability to run different operating systems on the same hardware.
+
+
+
 
 ### How do Windows and Mac have Containers without Namespacing?
 - Use virtualization technologies (Hyper-V for Windows, HyperKit for Mac) to create lightweight VMs running a Linux distribution (WSL for Windows).

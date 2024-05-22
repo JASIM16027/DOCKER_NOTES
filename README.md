@@ -172,6 +172,113 @@ Got it! Here's the information organized into a table format with a sample comma
 |                     | docker search               | Search for Docker images on Docker Hub.                      | `docker search nginx`                               |
 
 
+Sure, here's the rewritten list of Docker networking commands:
+
+**List available networks:**
+```
+docker network ls
+```
+
+**Remove one or more networks:**
+```
+docker network rm [network]
+```
+
+**Show information on one or more networks:**
+```
+docker network inspect [network]
+```
+
+**Connect a container to a network:**
+```
+docker network connect [network] [container]
+```
+
+**Disconnect a container from a network:**
+```
+docker network disconnect [network] [container]
+```
+
+Here's the list of Docker image-related commands:
+
+**Create an image from a Dockerfile:**
+```
+docker build [dockerfile-path]
+```
+
+**Build an image from a Dockerfile located in the current directory:**
+```
+docker build .
+```
+
+**Create an image from a Dockerfile and tag it:**
+```
+docker build -t [name]:[tag] [dockerfile-path]
+```
+
+**Specify a file to build from:**
+```
+docker build -f [file-path]
+```
+
+**Pull an image from a registry:**
+```
+docker pull [image]
+```
+
+**Push an image to a registry:**
+```
+docker push [image]
+```
+
+**Create an image from a tarball:**
+```
+docker import [url/file]
+```
+
+**Create an image from a container:**
+```
+docker commit [container] [new-image]
+```
+
+**Tag an image:**
+```
+docker tag [image] [image]:[tag]
+```
+
+**Show all locally stored top-level images:**
+```
+docker images
+```
+
+**Show history for an image:**
+```
+docker history [image]
+```
+
+**Remove an image:**
+```
+docker rmi [image]
+```
+
+**Load an image from a tar archive or stdin:**
+```
+docker load --input [tar-file]
+```
+
+**Save an image to a tar archive file using Docker save command:**
+```
+docker save [image] > [tar-file]
+```
+
+**Remove unused images:**
+```
+docker image prune
+```
+
+Replace `[dockerfile-path]`, `[name]`, `[tag]`, `[file-path]`, `[image]`, `[url/file]`, `[container]`, and `[new-image]` with the appropriate values according to your use case.
+
+
 
 #### Components of the Docker Ecosystem
 

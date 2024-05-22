@@ -133,52 +133,45 @@ By maintaining a clear separation between these two layers, operating systems en
 
 Docker is a platform and ecosystem designed to develop, ship, and run applications inside containers. It consists of several key components that work together to manage containerized applications efficiently.
 
+Got it! Here's the information organized into a table format with a sample command:
 
-### Container Management:
-- **docker run**: Create and start a new container from an image.
-- **docker start**: Start one or more stopped containers.
-- **docker stop**: Stop one or more running containers.
-- **docker restart**: Restart one or more containers.
-- **docker rm**: Remove one or more containers.
-- **docker ps**: List running containers.
-- **docker ps -a**: List all containers (including stopped ones).
-- **docker exec**: Run a command inside a running container.
-- **docker logs**: Fetch the logs of a container.
+| Category            | Command                     | Description                                                  | Example                                              |
+|---------------------|-----------------------------|--------------------------------------------------------------|------------------------------------------------------|
+| Container Management| docker run                  | Create and start a new container from an image.              | `docker run -d --name my_container nginx`           |
+|                     | docker start                | Start one or more stopped containers.                        | `docker start my_container`                         |
+|                     | docker stop                 | Stop one or more running containers.                        | `docker stop my_container`                          |
+|                     | docker restart              | Restart one or more containers.                              | `docker restart my_container`                       |
+|                     | docker rm                   | Remove one or more containers.                               | `docker rm my_container`                            |
+|                     | docker ps                   | List running containers.                                     | `docker ps`                                          |
+|                     | docker ps -a                | List all containers (including stopped ones).                | `docker ps -a`                                       |
+|                     | docker exec                 | Run a command inside a running container.                   | `docker exec -it my_container bash`                 |
+|                     | docker logs                 | Fetch the logs of a container.                               | `docker logs my_container`                          |
+| Image Management    | docker build                | Build a Docker image from a Dockerfile.                      | `docker build -t my_image .`                        |
+|                     | docker pull                 | Pull an image or a repository from a registry.              | `docker pull nginx`                                 |
+|                     | docker push                 | Push an image or a repository to a registry.                | `docker push my_username/my_image`                  |
+|                     | docker images               | List all locally available images.                           | `docker images`                                     |
+|                     | docker rmi                  | Remove one or more images.                                   | `docker rmi my_image`                               |
+|                     | docker tag                  | Tag an image with a new name and/or tag.                    | `docker tag my_image my_new_image`                  |
+| Network Management  | docker network create       | Create a new Docker network.                                 | `docker network create my_network`                  |
+|                     | docker network ls           | List Docker networks.                                        | `docker network ls`                                 |
+|                     | docker network inspect      | Display detailed information on one or more networks.        | `docker network inspect my_network`                 |
+|                     | docker network connect      | Connect a container to a network.                            | `docker network connect my_network my_container`    |
+|                     | docker network disconnect   | Disconnect a container from a network.                       | `docker network disconnect my_network my_container` |
+| Volume Management   | docker volume create        | Create a new volume.                                         | `docker volume create my_volume`                    |
+|                     | docker volume ls            | List Docker volumes.                                         | `docker volume ls`                                  |
+|                     | docker volume inspect       | Display detailed information on one or more volumes.         | `docker volume inspect my_volume`                   |
+|                     | docker volume rm            | Remove one or more volumes.                                  | `docker volume rm my_volume`                        |
+|                     | docker volume prune         | Remove all unused volumes.                                   | `docker volume prune`                               |
+| System Management   | docker info                 | Display system-wide information.                             | `docker info`                                       |
+|                     | docker version              | Show the Docker version information.                         | `docker version`                                    |
+|                     | docker system df            | Show Docker disk usage.                                      | `docker system df`                                  |
+|                     | docker system prune         | Remove unused data (containers, networks, images, volumes). | `docker system prune`                               |
+|                     | docker stats                | Display a live stream of container resource usage statistics.| `docker stats`                                      |
+| Registry Management | docker login                | Log in to a Docker registry.                                 | `docker login`                                      |
+|                     | docker logout               | Log out from a Docker registry.                              | `docker logout`                                     |
+|                     | docker search               | Search for Docker images on Docker Hub.                      | `docker search nginx`                               |
 
-### Image Management:
-- **docker build**: Build a Docker image from a Dockerfile.
-- **docker pull**: Pull an image or a repository from a registry.
-- **docker push**: Push an image or a repository to a registry.
-- **docker images**: List all locally available images.
-- **docker rmi**: Remove one or more images.
-- **docker tag**: Tag an image with a new name and/or tag.
 
-### Network Management:
-- **docker network create**: Create a new Docker network.
-- **docker network ls**: List Docker networks.
-- **docker network inspect**: Display detailed information on one or more networks.
-- **docker network connect**: Connect a container to a network.
-- **docker network disconnect**: Disconnect a container from a network.
-
-### Volume Management:
-- **docker volume create**: Create a new volume.
-- **docker volume ls**: List Docker volumes.
-- **docker volume inspect**: Display detailed information on one or more volumes.
-- **docker volume rm**: Remove one or more volumes.
-- **docker volume prune**: Remove all unused volumes.
-
-### System Management:
-- **docker info**: Display system-wide information.
-- **docker version**: Show the Docker version information.
-- **docker system df**: Show Docker disk usage.
-- **docker system prune**: Remove unused data (containers, networks, images, volumes).
-- **docker stats**: Display a live stream of container resource usage statistics.
-
-### Registry Management:
-- **docker login**: Log in to a Docker registry.
-- **docker logout**: Log out from a Docker registry.
-- **docker search**: Search for Docker images on Docker Hub.
-- 
 
 #### Components of the Docker Ecosystem
 

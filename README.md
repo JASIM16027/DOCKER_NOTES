@@ -837,3 +837,101 @@ To share your Docker image with others, you can push it to a container registry 
 - **RUN npm install:** Installs dependencies.
 - **CMD:** Specifies the command to run the application.
 - **Push to Docker Hub:** Tags and pushes the image to Docker Hub for sharing.
+
+
+
+### 1. **What is the base image used in the Dockerfile?**
+
+To find out the base image in a Dockerfile, inspect the `FROM` statement at the beginning of the file.
+
+```bash
+cat Dockerfile
+```
+
+The `FROM` statement specifies the base image being used.
+
+---
+
+### 2. **What command is used to run the application inside the container?**
+
+The command used to run the application in a container is defined in the `CMD` or `ENTRYPOINT` section of the Dockerfile.
+
+To inspect it:
+
+```bash
+cat Dockerfile
+```
+
+Look for the `CMD` or `ENTRYPOINT` instruction, which specifies how the application is launched.
+
+---
+
+### 3. **Build a Docker image using the Dockerfile and name it `webapp-color`.**
+
+To build the Docker image from the Dockerfile, run the following command:
+
+```bash
+docker build -t webapp-color .
+```
+
+This command builds an image and names it `webapp-color` without specifying any tag, so it defaults to the `latest` tag.
+
+---
+
+### 4. **Run an instance of the image `webapp-color` and publish port 8080 on the container to 8282 on the host.**
+
+To run the container, mapping the container's port 8080 to the host's port 8282:
+
+```bash
+docker run -d -p 8282:8080 webapp-color
+```
+
+This command runs the container in detached mode (`-d`), maps the container's port 8080 to host port 8282, and starts an instance of `webapp-color`.
+
+---
+
+### 5. **What is the base Operating System used by the `python:3.6` image?**
+
+To find the base operating system of the `python:3.6` image, you can run a container interactively and check the OS details:
+
+```bash
+docker run -it python:3.6 /bin/bash
+```
+
+Inside the container, use the following command to check the operating system:
+
+```bash
+cat /etc/os-release
+```
+
+This will provide information about the base OS of the `python:3.6` image.
+
+---
+
+### 6. **Why use `-it` in the command `docker run -it python:3.6 /bin/bash`?**
+
+The `-it` option in Docker is used to run a container interactively with a pseudo-TTY. Here's the breakdown:
+- `-i` keeps STDIN open to interact with the container.
+- `-t` allocates a pseudo-terminal.
+
+The full command:
+
+```bash
+docker run -it python:3.6 /bin/bash
+```
+
+Allows you to interact with the container's shell directly.
+
+---
+
+### 7. **Build a smaller Docker image using the same Dockerfile and name it `webapp-color:lite`.**
+
+To build a smaller image, modify the base image in the Dockerfile to something smaller like `python:3.6-alpine` and ensure that the final image size is under 150MB.
+
+Here’s how you would build it:
+
+```bash
+docker build -t webapp-color:lite .
+```
+
+By changing the base image to `python:3.6-alpine`, you reduce the size of the final image.

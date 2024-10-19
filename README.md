@@ -333,7 +333,7 @@ Replace `[dockerfile-path]`, `[name]`, `[tag]`, `[file-path]`, `[image]`, `[url/
 
 ## Dockerfile
 
-```
+```Dockerfile
 
 FROM node:18-alpine
 
@@ -379,7 +379,7 @@ This is a Dockerfile, a script that defines the environment and steps needed to 
 ## Docker Compose configuration for a microservices architecture:
 
 version: '3.8'
-```
+```yml
 services:
   user-service:
     container_name: user-service

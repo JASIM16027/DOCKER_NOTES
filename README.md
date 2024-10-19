@@ -935,3 +935,153 @@ docker build -t webapp-color:lite .
 ```
 
 By changing the base image to `python:3.6-alpine`, you reduce the size of the final image.
+
+
+# Docker compose
+
+
+### Short Summary:
+- **`docker compose up --build`**: Rebuild images and start the services.
+- **`docker compose up`**: Start services using already built images (or build if necessary).
+- **`docker compose down`**: Stop and remove all services, networks, and containers created by the `docker-compose` command.
+
+This command starts the services defined in the `docker-compose.yml` file.
+
+
+
+### 1. **`docker compose up --build`**
+
+This command does two things:
+- **`up`**: creates and starts the services defined in the `docker-compose.yml` file.
+- **`--build`**: Forces the recreation (rebuild) of the images, even if the images already exist locally.
+
+#### What it does:
+- When you run `docker compose up --build`, Docker Compose will:
+  1. Build or rebuild any images defined in the `docker-compose.yml` file.
+  2. Create and start the containers for each service.
+  3. If there are changes in your Dockerfile or the dependencies, it will rebuild the images before launching the containers.
+  
+#### When to use:
+- Use this when you’ve made changes to the Dockerfile or dependencies and want to ensure those changes are reflected in the container.
+
+---
+
+### 2. **`docker compose up`**
+
+**`docker compose up`** essentially does three things for each service defined in your `docker-compose.yml` file:
+
+#### 1. **Create** the services:
+   - If the containers do not already exist, Docker Compose will **create** new containers from the images specified in the `docker-compose.yml` file. If an image doesn’t exist locally, it will either pull it from a registry (like Docker Hub) or build it (if you have a build context defined).
+
+#### 2. **Start** the services:
+   - If the containers already exist but are stopped, Docker Compose will **start** them. This means it will resume the containers without recreating them. If they don’t exist, it will create and then start the containers.
+
+#### 3. **Run** the services:
+   - Once the services are started, the containers will begin to **run** the applications or processes they are configured for. For example, a web server, a database, or any other program defined in the Dockerfile or `docker-compose.yml` will start running.
+
+
+### Summary:
+When you run `docker compose up`, Docker:
+1. **Create** the containers (if they don’t already exist).
+2. **Start** the containers (if they exist but are stopped).
+3. **Run** The actual processes inside the containers (like a web server, database, etc.) are executed and kept running.
+
+If the containers are already running, it just continues to run them.
+
+#### What it does:
+- When you run `docker compose up` (without `--build`), Docker Compose will:
+  1. Look for any pre-built images for your services.
+  2. If the images are already built, it will use those to create and start the containers.
+  3. If the images don’t exist, it will automatically build them (but only if they haven't been built before).
+  
+#### When to use:
+- Use this when you want to start your application without forcing a rebuild of the images.
+- It is faster than `docker compose up --build` because it doesn’t rebuild the images unless necessary.
+
+---
+### 3.  **`docker compose up -d`**
+
+The `-d` flag stands for **detached mode**.
+
+#### What it does:
+- When you run `docker compose up -d`, Docker Compose will:
+  1. Create and start all services defined in the `docker-compose.yml` file, just like the regular `docker compose up` command.
+  2. Run the containers in **detached mode**, meaning they will run in the background.
+
+#### Key differences:
+- Without `-d`, the logs of the running containers are attached to your terminal, and you can see the output of the containers live. The terminal will be occupied until you stop the services with `Ctrl + C`.
+- With `-d`, the containers will start in the background, and the terminal is freed up immediately, allowing you to continue using it.
+  
+
+#### How to view running services:
+After running `docker compose up -d`, you can view the running containers with:
+```bash
+docker ps
+```
+
+If you want to see the logs of the containers while they run in detached mode, you can use:
+```bash
+docker compose logs
+```
+
+#### When to use:
+- Use this when you want to run your services in the background without keeping your terminal occupied. It’s particularly useful when you don’t need to monitor the logs in real time.
+
+
+### Example:
+```bash
+docker compose up -d
+```
+- This command will create, start the services, and run them in the background.
+
+
+### 4. **`docker compose down`**
+
+This command stops and removes the containers, networks, and volumes defined in the `docker-compose.yml` file.
+
+#### What it does:
+- When you run `docker compose down`, Docker Compose will:
+  1. Stop all the running containers created by `docker compose up`.
+  2. Remove the containers.
+  3. Remove any networks that were created as part of the `docker-compose.yml`.
+  4. Optionally remove named volumes if you use the `-v` flag (e.g., `docker compose down -v`).
+  
+#### When to use:
+- Use this when you want to completely stop and clean up the environment created by Docker Compose. This is useful when you're done working on a project or want to start fresh.
+
+---
+
+
+The image shows a simple chart explaining the meaning of exit status codes, commonly used in programming and shell scripting.
+
+- **Status Code 0:**
+-  process.exit(0)
+  - The message says, *"We exited and everything is OK."* 
+  - This means that when a program or script finishes and returns an exit code of `0`, it signifies successful execution without any errors.
+
+- **Status Code 1, 2, 3, etc.:**
+  - process.exit(1 or 2 or 3 .....)
+  - The message says, *"We exited because something went wrong."*
+  - Any non-zero exit code (1 or higher) indicates that an error or some issue occurred during the execution, and the program or script did not complete successfully.
+
+In summary:
+- Exit code `0` = success.
+- Exit code `1` or greater = failure or error occurred.
+- 
+
+![image](https://github.com/user-attachments/assets/d89a1507-4dee-45d1-b855-125ec9385633)
+
+```bash
+version: '3'
+services:
+  redis-server:
+    image: 'redis'
+  node-app:
+    restart: on-failure
+    build: .
+    ports:
+      - '4001:5000'
+
+```
+
+

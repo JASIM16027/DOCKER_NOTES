@@ -133,6 +133,8 @@ By maintaining a clear separation between these two layers, operating systems en
 
 Docker is a platform and ecosystem designed to develop, ship, and run applications inside containers. It consists of several key components that work together to manage containerized applications efficiently.
 
+To better understand docker see the diagram : https://app.diagrams.net/?src=about#G1bzvbHFhDX4LxF4KLwHnEul0Mtnb06XmE#%7B%22pageId%22%3A%22Jy9q0EDmPOdd4UMKcCcg%22%7D
+
 Got it! Here's the information organized into a table format with a sample command:
 
 | Category            | Command                     | Description                                                  | Example                                              |

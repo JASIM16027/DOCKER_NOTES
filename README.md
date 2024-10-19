@@ -384,9 +384,9 @@ This diagram illustrates how processes on your computer interact with hardware c
      - **Spotify**: A music streaming app.
      - **NodeJS**: A runtime environment for executing JavaScript.
    - Each of these applications operates as a separate process on your computer.
-
+ 
 2. **System Calls**:
-   - A **system call** is a way for a running process to request a service from the operating system’s kernel. These services typically involve access to hardware components like the CPU, memory, or disk.
+   - A **system call** is a way how a running program asks/ request the operating system’s kernel for a service. These services typically involve access to hardware components like the CPU, memory, or disk.
    - Examples of system calls:
      - Reading from a file.
      - Allocating memory.

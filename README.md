@@ -1106,54 +1106,60 @@ In development, you might have a different Dockerfile (e.g., `Dockerfile.dev`) f
 
 Suppose you have two Dockerfiles:
 
+
+
 1. **`Dockerfile`**: For production
    ```Dockerfile
-   # Use a minimal Node.js image
-   FROM node:16-alpine
+      # Use the official Node.js image as a base image
+      # Use a minimal Node.js image
+       FROM node:16-alpine
+      
+      # Set the working directory in the container
+      WORKDIR /usr/src/app
+      
+      # Copy package.json and package-lock.json into the working directory
+      COPY package*.json ./
+      
+      # Install dependencies
+      RUN npm install --production
+      
+      # Copy the rest of the application code into the container
+      COPY . .
+      
+      # Expose the port that the app runs on
+      EXPOSE 3000
+      
+      # Command to run the application
+      CMD ["npm", "start"]
 
-   # Set the working directory
-   WORKDIR /app
 
-   # Copy package.json and install dependencies
-   COPY package.json .
-   RUN npm install --production
-
-   # Copy the rest of the application code
-   COPY . .
-
-   # Start the application
-   CMD ["npm", "start"]
-
-   # Expose the port the app runs on
-   EXPOSE 3000
    ```
 
 2. **`Dockerfile.dev`**: For development
+   
    ```Dockerfile
-   # Use a larger Node.js image with more development tools
-   FROM node:16
-
-   # Set the working directory
-   WORKDIR /app
-
-   # Copy package.json and install dependencies
-   COPY package.json .
-   RUN npm install
-
-   # Copy the rest of the application code
-   COPY . .
-
-   # Install additional development tools like nodemon for hot-reloading
-   RUN npm install -g nodemon
-
-   # Start the app with nodemon to enable live-reloading during development
-   CMD ["nodemon", "app.js"]
-
-   # Expose the port the app runs on
-   EXPOSE 3000
+       # Use the official Node.js image as a base image
+       # Use a larger Node.js image with more development tools
+       FROM node:16
+   
+      # Set the working directory in the container
+       WORKDIR /usr/src/app
+      
+      # Copy package.json and package-lock.json into the working directory
+       COPY package*.json ./
+      
+       # Install additional development tools like nodemon for hot-reloading
+       RUN npm install -g nodemon
+      
+      # Copy the rest of the application code into the container
+       COPY . .
+      
+      # Expose the port that the app runs on
+       EXPOSE 3000
+     # Start the app with nodemon to enable live-reloading during development
+       CMD ["nodemon", "app.js"]
    ```
 
----
 
 ### How to build using `Dockerfile.dev`:
 

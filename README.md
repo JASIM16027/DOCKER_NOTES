@@ -477,6 +477,31 @@ The diagram explains two important Linux kernel features used to manage system r
 
 These two mechanisms are foundational for containerization technologies (like Docker, Kubernetes) that need to isolate environments and efficiently manage system resources.
 
+![image](https://github.com/user-attachments/assets/8787d6f0-6dca-4ac8-9fb3-04a8b85eb22e)
+
+This diagram illustrates a containerized environment, showing how processes interact with system resources, specifically the hard disk. Here's an explanation:
+
+1. **Container:** 
+   -  there are two processes: **Chrome** and **NodeJS**.
+   -   The **Chrome** process relies on **Python V2** for certain tasks.
+   - The **NodeJS** process relies on **Python V3** for certain tasks.
+
+2. **System Call to Access the Hard Disk:**
+   - A **system call** is being made from from the  two processes: **Chrome** and **NodeJS* to read data from the hard disk.
+
+3. **Question:**
+   - The diagram asks, "**Which process is making this system call?**"
+     - **Chrome** **NodeJS** is responsible for **Python V3** and **NodeJS** is responsible for **Python V2**.
+       
+4. **Hard Disk:**
+   - The hard disk is divided into segments:
+     - One segment contains **Python V2**.
+     - Another segment contains **Python V3**, which is used by **NodeJS**.
+
+### Summary:
+The diagram focuses on a **process inside a container** (likely NodeJS) making a system call to access the **hard disk**. The disk is split into segments, including one for **Python V3**, which the system call is probably targeting.
+
+
 ## Dockerfile
 
 ```Dockerfile

@@ -1071,7 +1071,7 @@ In summary:
 
 ![image](https://github.com/user-attachments/assets/d89a1507-4dee-45d1-b855-125ec9385633)
 
-```bash
+```yml
 version: '3'
 services:
   redis-server:

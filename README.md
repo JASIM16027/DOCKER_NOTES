@@ -124,6 +124,11 @@ By maintaining a clear separation between these two layers, operating systems en
 ### Docker: A Solution to Traditional Virtualization Limitations
 
 **Why Do We Need Docker?**
+
+![image](https://github.com/user-attachments/assets/04c81395-89f8-438f-bfc9-604259d6008c)
+
+Docker makes it really easy to install and run software without worrying about setup or dependencies.
+
 - **Lightweight:** Docker containers share the host OS kernel, reducing the overhead associated with running multiple OS instances.
 - **Isolated:** Containers provide process and filesystem isolation, ensuring applications run in their own environments.
 - **Fast Startup Times:** Containers can start almost instantly because they don't require booting a full OS.
@@ -284,6 +289,13 @@ Replace `[dockerfile-path]`, `[name]`, `[tag]`, `[file-path]`, `[image]`, `[url/
 
 #### Components of the Docker Ecosystem
 
+![image](https://github.com/user-attachments/assets/576d93dc-228b-4834-bf43-6fbacb0409aa)
+
+
+![image](https://github.com/user-attachments/assets/b2f948e2-f40f-4b8e-b30b-37c3e025d6ce)
+
+
+
 1. **Docker Client:**
    - The Docker client is a command-line interface (CLI) tool used to interact with the Docker daemon.
    - Commands issued through the CLI (e.g., `docker run`, `docker build`) are sent to the Docker daemon for execution.
@@ -331,7 +343,35 @@ Replace `[dockerfile-path]`, `[name]`, `[tag]`, `[file-path]`, `[image]`, `[url/
    - Use the command `docker-compose up -d` to start the application with all defined services.
    - Use `docker-compose down` to stop and remove the application’s containers, networks, and volumes.
 
-     
+This diagram illustrates how Docker works when you run the command `docker run hello-world`. It visually explains the relationship between your local machine (computer) and Docker Hub.
+
+### Explanation:
+
+This diagram helps visualize the connection between your machine and Docker Hub when using Docker to manage containers.
+
+![image](https://github.com/user-attachments/assets/71d9e9ce-09d5-485f-afef-1fabd2a4eceb)
+
+
+1. **docker run hello-world**: 
+   - This is a Docker command that tells Docker to run the "hello-world" container.
+
+2. **Your Computer**: 
+   - **Docker Client**: This is the command-line interface (CLI) tool that you use to interact with Docker. It receives the `docker run hello-world` command.
+   - **Docker Server**: Also known as Docker Daemon, it manages Docker containers and handles images. The Docker Client communicates with the Docker Server to manage containers.
+   - **Image Cache**: Docker keeps a cache of images it has already downloaded. If the "hello-world" image is already cached on your computer, Docker Server will use it directly without downloading it again.
+   - **hello-world Container**: If the image is not cached locally, Docker will pull it from Docker Hub and create a running container from the image.
+
+3. **Docker Hub**:
+   - **hello-world, redis, busybox, Other Images**: Docker Hub is a cloud-based repository where Docker images are stored. The "hello-world" image is just one of many pre-built images (such as Redis, BusyBox, or custom ones). When you run `docker run hello-world`, Docker checks Docker Hub for the image if it's not found locally.
+   - **Single file with everything needed to run one specific program**: Each Docker image on Docker Hub is a self-contained file that includes everything needed to run a program, including code, libraries, and dependencies.
+
+### Workflow:
+1. You run the `docker run hello-world` command on your computer.
+2. Docker Client sends the command to the Docker Server.
+3. The Docker Server checks whether the "hello-world" image is cached locally. If not, it pulls it from Docker Hub.
+4. Docker creates a container from the image and runs it.
+
+
 
 ## Dockerfile
 

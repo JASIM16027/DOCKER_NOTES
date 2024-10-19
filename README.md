@@ -479,6 +479,12 @@ These two mechanisms are foundational for containerization technologies (like Do
 
 ![image](https://github.com/user-attachments/assets/8787d6f0-6dca-4ac8-9fb3-04a8b85eb22e)
 
+![image](https://github.com/user-attachments/assets/ad515fb2-15a4-4eb1-aeae-98efb90f3c0f)
+
+![image](https://github.com/user-attachments/assets/c22eddfe-8e71-4920-bf57-106fbb896237)
+
+
+
 This diagram illustrates a containerized environment, showing how processes interact with system resources, specifically the hard disk. Here's an explanation:
 
 1. **Container:** 
@@ -500,6 +506,8 @@ This diagram illustrates a containerized environment, showing how processes inte
 
 ### Summary:
 The diagram focuses on a **process inside a container** (likely NodeJS) making a system call to access the **hard disk**. The disk is split into segments, including one for **Python V3**, which the system call is probably targeting.
+
+![image](https://github.com/user-attachments/assets/5ff57308-6aa9-4927-87fb-7c47c8ebf01b)
 
 
 ## Dockerfile

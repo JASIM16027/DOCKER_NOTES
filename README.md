@@ -417,7 +417,7 @@ In summary, this diagram represents how running programs communicate with your c
 ![image](https://github.com/user-attachments/assets/1fc4aaef-7a22-44dd-948d-27fa558962b2)
 
 
-The diagram illustrates how the operating system kernel interacts with software applications and handles system calls, particularly when applications have dependencies on different versions of Python. Here's a breakdown:
+The diagram illustrates how the operating system'S kernel interacts with software applications and handles system calls, particularly when applications have dependencies on different versions of Python. Here's a breakdown:
 
 ### 1. **Applications (Chrome and NodeJS)**:
    - **Chrome**: Requires **Python v2** to properly working or functioning.
@@ -428,19 +428,55 @@ The diagram illustrates how the operating system kernel interacts with software 
    - Both applications (Chrome and NodeJS) communicate with the operating system's kernel via **System Calls**. System calls are mechanisms that allow programs to request services from the kernel, like accessing hardware resources or managing files.
 
 ### 3. **Kernel**:
-   - The **Kernel** sits in the middle layer and is responsible for managing the system resources, hardware, and processes. It ensures that the system calls made by Chrome and NodeJS are handled properly, regardless of which version of Python they require.
+   - The **Kernel** sits in the middle layer and is responsible for managing the system resources, hardware, and processes . It ensures that the system calls made by Chrome and NodeJS are handled properly and also ensures each application gets access to the appropriate version of Python needed for execution.
    - The kernel abstracts hardware complexities and manages how the software interacts with system resources like memory, CPU, and hard disk.
 
 ### 4. **Hard Disk Segments**:
    - Below the kernel is the **Hard Disk**, which contains two distinct segments:
-     - One segment is allocated to **Python v2**, required by Chrome.
-     - Another segment is allocated to **Python v3**, required by NodeJS.
+     - One segment is allocated to **Python v2** for Chrome.
+     - Another segment is allocated to **Python v3** for NodeJS.
    - These segments are likely different environments or virtual environments set up to allow different versions of Python to coexist on the same system without conflict.
 
 ### Summary:
 - **Chrome** uses Python v2, and **NodeJS** uses Python v3. Both applications interact with the kernel via system calls, and the kernel manages the different Python versions stored on the hard disk, ensuring that the correct version is used for each application. This setup allows multiple Python versions to coexist and serve different applications that require specific versions.
 
-  
+## **Namespacing** and **Control Groups (cgroups)**
+
+![image](https://github.com/user-attachments/assets/53b0e06c-8571-418b-9a76-e09f0415dcb9)
+
+
+The diagram explains two important Linux kernel features used to manage system resources in containers or isolated environments: **Namespacing** and **Control Groups (cgroups)**.
+
+### 1. **Namespacing**:
+   Namespacing is a feature used to isolate system resources for processes or groups of processes. This ensures that different processes don't interfere with each other and operate within their own confined space. Here's how different resources are isolated:
+   
+   - **Processes**: Each process or group of processes operates as if they are the only ones in the system. This ensures process isolation, so that one process doesn’t see or interfere with another.
+   - **Users**: The user IDs are isolated so processes believe they are running under a specific user, and cannot interact with users outside their namespace.
+   - **Hostnames**: Each namespace can have its own hostname, which isolates network configurations and makes it seem as though each container has its own unique host environment.
+   - **Hard Drive**: Access to the file system can be restricted to a certain directory, so a process in a namespace can only interact with specific portions of the hard drive.
+   - **Network**: Each namespace can have its own network stack (IP addresses, routing tables, ports), ensuring network isolation.
+   - **Inter-process Communication (IPC)**: IPC mechanisms are isolated per namespace, so processes within a namespace can communicate with each other but are isolated from processes in other namespaces.
+
+   **Purpose**: Namespacing creates isolated environments, often used in containerization (e.g., Docker), where each container thinks it’s running on its own machine.
+
+### 2. **Control Groups (cgroups)**:
+   Control groups are a kernel feature that limits, measures, and isolates the resource usage (such as CPU, memory, and network) of a process or a group of processes. This prevents any one process from consuming too many system resources, ensuring fair distribution. Here’s how resource limits can be applied:
+
+   - **Memory**: Limits the amount of memory that a process can use. If it exceeds this limit, it might be terminated or slowed down.
+   - **CPU Usage**: Restricts how much CPU time a process can use, ensuring that no single process monopolizes the CPU and disrupts the performance of other applications.
+   - **Network Bandwidth**: Limits how much network bandwidth a process or group of processes can consume, avoiding network bottlenecks caused by a single application.
+   - **HD I/O (Hard Disk Input/Output)**: Controls how much access a process can have to the hard drive for reading or writing data, which prevents processes from overwhelming disk operations.
+
+   **Purpose**: Control groups are used to ensure resource efficiency, prevent resource abuse, and maintain system stability by limiting how much of each system resource a process can use.
+
+---
+
+### In Summary:
+- **Namespacing** isolates system resources to provide secure and independent environments for processes or groups of processes.
+- **Control Groups (cgroups)** limit and monitor the amount of resources a process can use, ensuring resource control and fairness across the system. 
+
+These two mechanisms are foundational for containerization technologies (like Docker, Kubernetes) that need to isolate environments and efficiently manage system resources.
+
 ## Dockerfile
 
 ```Dockerfile

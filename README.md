@@ -386,7 +386,7 @@ This diagram illustrates how processes on your computer interact with hardware c
    - Each of these applications operates as a separate process on your computer.
  
 2. **System Calls**:
-   - A **system call** is a way how a running program asks/ request the operating system’s kernel for a service. These services typically involve access to hardware components like the CPU, memory, or disk.
+   - A **system call** is a mechanisms how a running program asks/request the operating system’s kernel for a service. These services typically involve access to hardware components like the CPU, memory, or disk.
    - Examples of system calls:
      - Reading from a file.
      - Allocating memory.
@@ -394,7 +394,7 @@ This diagram illustrates how processes on your computer interact with hardware c
    - In this diagram, each of the processes (like Chrome or Spotify) makes system calls to the kernel to interact with the hardware.
 
 3. **Kernel**:
-   - The **kernel** is the core part of the operating system that manages the system's resources and hardware. It acts as an intermediary between running programs and the underlying hardware.
+   - The **kernel** is the core part of the operating system that manages the system's resources(RAM,CPU)  and hardware(Hard Disk / SSD,GPU,NIC) . It acts as an intermediary between running programs and the underlying hardware.
    - The kernel ensures that programs can access resources like CPU, memory, or the hard disk securely and efficiently.
 
 4. **Hardware Components**:
@@ -410,7 +410,37 @@ This diagram illustrates how processes on your computer interact with hardware c
 
 In summary, this diagram represents how running programs communicate with your computer’s hardware through the kernel using system calls, ensuring that hardware resources are managed efficiently and securely.
 
+##  How the operating system kernel interacts with software applications and handles system calls, particularly when applications have dependencies on different versions ?
 
+![image](https://github.com/user-attachments/assets/56f72a60-0350-4259-a393-084f2cf08cae)
+
+![image](https://github.com/user-attachments/assets/1fc4aaef-7a22-44dd-948d-27fa558962b2)
+
+
+The diagram illustrates how the operating system kernel interacts with software applications and handles system calls, particularly when applications have dependencies on different versions of Python. Here's a breakdown:
+
+### 1. **Applications (Chrome and NodeJS)**:
+   - **Chrome**: Requires **Python v2** to properly working or functioning.
+   - **NodeJS**: Requires **Python v3** to properly working or functioning.
+   - These applications are placed at the top layer, showing that they rely on system calls to communicate with the operating system.
+
+### 2. **System Calls**:
+   - Both applications (Chrome and NodeJS) communicate with the operating system's kernel via **System Calls**. System calls are mechanisms that allow programs to request services from the kernel, like accessing hardware resources or managing files.
+
+### 3. **Kernel**:
+   - The **Kernel** sits in the middle layer and is responsible for managing the system resources, hardware, and processes. It ensures that the system calls made by Chrome and NodeJS are handled properly, regardless of which version of Python they require.
+   - The kernel abstracts hardware complexities and manages how the software interacts with system resources like memory, CPU, and hard disk.
+
+### 4. **Hard Disk Segments**:
+   - Below the kernel is the **Hard Disk**, which contains two distinct segments:
+     - One segment is allocated to **Python v2**, required by Chrome.
+     - Another segment is allocated to **Python v3**, required by NodeJS.
+   - These segments are likely different environments or virtual environments set up to allow different versions of Python to coexist on the same system without conflict.
+
+### Summary:
+- **Chrome** uses Python v2, and **NodeJS** uses Python v3. Both applications interact with the kernel via system calls, and the kernel manages the different Python versions stored on the hard disk, ensuring that the correct version is used for each application. This setup allows multiple Python versions to coexist and serve different applications that require specific versions.
+
+  
 ## Dockerfile
 
 ```Dockerfile

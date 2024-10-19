@@ -371,6 +371,44 @@ This diagram helps visualize the connection between your machine and Docker Hub 
 3. The Docker Server checks whether the "hello-world" image is cached locally. If not, it pulls it from Docker Hub.
 4. Docker creates a container from the image and runs it.
 
+## How running Processes on your computer communication with hardware resources
+
+![image](https://github.com/user-attachments/assets/4ca90484-1d49-4ce6-ad97-be47569b4a14)
+
+This diagram illustrates how processes on your computer interact with hardware components via the **kernel** using **system calls**.
+
+1. **Processes running on your computer**:
+   - These are the programs that are actively running on your system, such as:
+     - **Chrome**: A web browser.
+     - **Terminal**: A command-line interface.
+     - **Spotify**: A music streaming app.
+     - **NodeJS**: A runtime environment for executing JavaScript.
+   - Each of these applications operates as a separate process on your computer.
+
+2. **System Calls**:
+   - A **system call** is a way for a running process to request a service from the operating system’s kernel. These services typically involve access to hardware components like the CPU, memory, or disk.
+   - Examples of system calls:
+     - Reading from a file.
+     - Allocating memory.
+     - Accessing the network.
+   - In this diagram, each of the processes (like Chrome or Spotify) makes system calls to the kernel to interact with the hardware.
+
+3. **Kernel**:
+   - The **kernel** is the core part of the operating system that manages the system's resources and hardware. It acts as an intermediary between running programs and the underlying hardware.
+   - The kernel ensures that programs can access resources like CPU, memory, or the hard disk securely and efficiently.
+
+4. **Hardware Components**:
+   - The kernel controls access to the key hardware components:
+     - **CPU**: The central processing unit, which executes the instructions of programs.
+     - **Memory**: RAM (random-access memory), where active programs store data they are using.
+     - **Hard Disk**: Long-term storage for files and data.
+
+### Workflow:
+
+- Each running process (Chrome, Terminal, etc.) makes system calls to ask/request the kernel to communicate/interact with the hardware
+- The **kernel** interprets these requests and interacts with the necessary hardware components (CPU, Memory, Hard Disk) on behalf of the process.
+
+In summary, this diagram represents how running programs communicate with your computer’s hardware through the kernel using system calls, ensuring that hardware resources are managed efficiently and securely.
 
 
 ## Dockerfile

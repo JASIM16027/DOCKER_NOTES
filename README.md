@@ -510,6 +510,94 @@ The diagram focuses on a **process inside a container** (likely NodeJS) making a
 ![image](https://github.com/user-attachments/assets/5ff57308-6aa9-4927-87fb-7c47c8ebf01b)
 
 
+## How do you install Chrome on a computer with no operating system?
+
+![image](https://github.com/user-attachments/assets/5e56bb91-5c8c-495a-9f0a-a0e21b3f22a1)
+
+
+This flowchart appears to illustrate the steps involved in installing the Google Chrome browser on a computer that currently has no operating system (OS). Here's an explanation of each step:
+
+1. **Install an operating system**:
+   - Since the computer has no OS, you first need to install one. The flow mentions specifying a "base image," which could refer to installing an operating system from a pre-configured image (e.g., Linux, Windows).
+   
+2. **Start up your default browser**:
+   - After installing the OS, the default browser (e.g., Edge for Windows or Firefox for some Linux distributions) will be available. 
+
+3. **Navigate to chrome.google.com**:
+   - Using the default browser, go to the Chrome download page at chrome.google.com.
+
+4. **Download installer**:
+   - Once on the Chrome website, download the Chrome installer file.
+
+5. **Open file/folder explorer**:
+   - After downloading, open the file explorer to locate the installer file.
+
+6. **Execute chrome_installer.exe**:
+   - Run the Chrome installer (`chrome_installer.exe`) by double-clicking the downloaded file.
+
+7. **Execute chrome.exe**:
+   - Once the installation is complete, the executable `chrome.exe` is launched to start Chrome.
+
+Additional Notes in the Flow:
+- **Specify a base image**: Refers to the step of installing a specific OS image, which could be a part of a larger automated deployment or manual OS installation.
+- **Run commands to install additional programs**: This step is for running commands or scripts to install additional software beyond Chrome if required.
+- **Command to run on startup**: This might suggest setting Chrome to run on startup after installation, likely using OS-specific configurations.
+
+Overall, the chart represents the full sequence from setting up the OS to successfully running Chrome on the system.
+
+Here’s a simple example of using Docker to run Google Chrome inside a container. This setup can be useful for testing or automation tasks where you need a browser running in a containerized environment.
+
+### 1. **Dockerfile Example**
+
+Here’s a Dockerfile that installs Chrome in a lightweight `alpine` Linux container:
+
+```Dockerfile
+# Use an official base image
+FROM debian:stable-slim
+
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    wget \
+    gnupg \
+    --no-install-recommends
+
+# Add Google Chrome’s repository key and install Chrome
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+    sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list' && \
+    apt-get update && \
+    apt-get install -y google-chrome-stable --no-install-recommends
+
+# Clean up
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Set default command to run Chrome in headless mode
+CMD ["google-chrome", "--no-sandbox", "--headless", "--disable-gpu", "--remote-debugging-port=9222"]
+```
+
+### 2. **Building the Docker Image**
+Save the above Dockerfile in a directory and run the following command to build the Docker image:
+
+```bash
+docker build -t chrome-docker .
+```
+
+### 3. **Running the Container**
+To run the container in headless mode (without a graphical interface) and perform automated tasks, you can use:
+
+```bash
+docker run -d -p 9222:9222 chrome-docker
+```
+
+### 4. **Using Chrome in the Container**
+Once the container is running, you can connect to it via the remote debugging protocol on port `9222`, which you exposed above. You can use tools like Selenium or Puppeteer to interact with Chrome inside the container.
+
+### Notes:
+- This setup uses headless Chrome, meaning there’s no GUI (Graphical User Interface), which is ideal for automation or testing in CI pipelines.
+- Make sure to adjust the Docker image and settings if you need a full Chrome environment with a UI, such as adding VNC for remote desktop or using a larger base image like Ubuntu.
+
+
+
+
 ## Dockerfile
 
 ```Dockerfile
@@ -945,6 +1033,7 @@ docker run -p 4000:3306 -v /my/host/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=1
 ```
 
 With volume mapping, files created in the container will be visible in the mapped directory on the host machine. This allows for easy file sharing and persistent data storage between the host and the container.
+
 
 
 ### Dockerfile

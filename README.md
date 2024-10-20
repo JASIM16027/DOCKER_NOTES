@@ -863,6 +863,79 @@ CMD ["python", "app.py"]
 Both of these examples show how Docker images are built layer by layer, and how each instruction in the Dockerfile contributes to the final image that will run the application in a container.
 
 
+## how Docker containers interact with the underlying system resources 
+
+![image](https://github.com/user-attachments/assets/dea4b638-ce4f-4e76-b305-af94e180f4c1)
+
+![image](https://github.com/user-attachments/assets/0109d3c4-36f8-4372-8eb8-ff2c0f01d625)
+
+![image](https://github.com/user-attachments/assets/5230e70d-abfc-4605-84be-73a9863ef900)
+
+![image](https://github.com/user-attachments/assets/2a43b557-6434-4c50-88b6-bb8f18364265)
+
+![image](https://github.com/user-attachments/assets/e4a454c0-21a9-48c1-89b5-06e7e8548e30)
+
+![image](https://github.com/user-attachments/assets/49423746-9b16-49f2-a262-1f8a030d4e42)
+
+![image](https://github.com/user-attachments/assets/954576b6-ca45-4145-9254-cc363506b1aa)
+
+![image](https://github.com/user-attachments/assets/219f745f-40a7-4f61-8de3-ba199b6762cf)
+
+![image](https://github.com/user-attachments/assets/033fe035-0f4d-43b1-bbd7-c66992d8e507)
+
+![image](https://github.com/user-attachments/assets/14c90dfd-0c24-4899-9195-25b5faec8e32)
+
+![image](https://github.com/user-attachments/assets/c23dc99f-2d26-4189-adc7-7a47d4fdb899)
+
+
+
+
+
+This diagram illustrates how Docker containers interact with the underlying system resources (such as the kernel, CPU, RAM, and disk) and what happens when you build and run a Docker container using a Node.js image on Alpine Linux.
+
+### Explanation of Each Component:
+
+#### **Dockerfile Instructions:**
+
+1. **`FROM node:alpine`**:
+   - The Docker build process begins with a base image, in this case, a lightweight **Alpine Linux** image with **Node.js** pre-installed (`node:alpine`).
+   - This base image provides a minimal environment to run a Node.js application.
+
+2. **`RUN npm install`**:
+   - This command installs the necessary Node.js dependencies for the application using npm. It’s executed during the image build process, creating a layer where all the required libraries and modules are installed.
+
+3. **`CMD ["npm", "start"]`**:
+   - This command defines the default startup process of the container. When the container runs, it will execute `npm start` to start the Node.js application.
+
+#### **Node:alpine Image Layer**:
+
+- The image resulting from the instructions mentioned above is labeled as **Node:alpine Image**. 
+- This image includes a **filesystem snapshot** of all the required directories like:
+  - `bin`, `dev`, `etc`, `home`, `proc`—which represent the directories from the Alpine Linux base image and the Node.js environment.
+- No startup command is explicitly defined in the snapshot until the `CMD` instruction in the Dockerfile, where the container is set to run the Node.js application.
+
+#### **Container (at Runtime):**
+
+- **Kernel**: 
+  - The Docker container relies on the **host operating system's kernel** to interact with hardware resources like CPU, RAM, and disk. Containers share the kernel with the host system but have isolated processes, making them lightweight compared to virtual machines.
+  
+- **Running Process**:
+  - Once the container is started (based on the `CMD` instruction), it initiates a **running process**, such as the Node.js application.
+  - The running process has access to a defined subset of system resources (RAM, network, CPU, and storage).
+  
+- **Resource Isolation**:
+  - The container's **RAM**, **Network**, **CPU**, and **Disk** usage are isolated from the rest of the system, meaning the container operates as if it is a separate entity, despite sharing the kernel with the host OS.
+  - The container is given a specific **hard drive segment** for its file system (including directories like `bin`, `dev`, etc.) and data, while the rest of the hard drive remains inaccessible to it. This is part of Docker's storage and resource isolation feature.
+
+#### **Rest of the Hard Drive**:
+- The **REST OF HARD DRIVE** block represents the part of the system's disk space that is outside the container’s scope. Containers only have access to the portion of disk space allocated to them and can't interact with the rest of the system’s file storage unless explicitly configured (e.g., through Docker volumes).
+
+### Summary:
+- The left-hand side represents how the image is built using Alpine Linux with Node.js, installing dependencies via npm, and specifying the startup command (`npm start`).
+- The right-hand side shows how the container operates at runtime, interacting with the system kernel, consuming resources (RAM, CPU, network, disk), and maintaining file system isolation from the rest of the system.
+
+This setup emphasizes Docker's ability to package applications in a way that they can run in isolated environments, with controlled access to system resources.
+
 
 
 ## Dockerfile

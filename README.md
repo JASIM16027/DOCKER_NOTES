@@ -734,6 +734,12 @@ EXPOSE 3000
 CMD ["npm", "start"]
 ```
 
+
+![image](https://github.com/user-attachments/assets/548d6b6a-c7be-487e-85a5-735d6989d547)
+
+![image](https://github.com/user-attachments/assets/405d28ba-9ce0-48b9-a4bb-261efbb7d92e)
+
+
 #### Step-by-Step Breakdown (with Image Layers):
 
 1. **Base Image (Node.js)**:

@@ -607,7 +607,19 @@ Once the container is running, you can connect to it via the remote debugging pr
 
 ## Building a Docker image using a Dockerfile
 
+![image](https://github.com/user-attachments/assets/cfe9a038-ced9-4923-8d96-2a8d8165093f)
+
+
+![image](https://github.com/user-attachments/assets/464ce112-9498-4cfc-a5e3-32f61c688d3b)
+
+
 ![image](https://github.com/user-attachments/assets/cfc4cd72-1117-4a0e-ad3b-3e89a33a723c)
+
+![image](https://github.com/user-attachments/assets/d8e4dd83-c6bf-4cf4-8ded-d46b8143dd2f)
+
+![image](https://github.com/user-attachments/assets/82e8edcf-a1ac-46d4-8695-8fa0f8efdccb)
+
+
 
 This diagram represents the steps for building a Docker image using a Dockerfile. Here's a more detailed breakdown of each section and its role:
 

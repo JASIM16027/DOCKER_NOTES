@@ -605,7 +605,55 @@ Once the container is running, you can connect to it via the remote debugging pr
 - This setup uses headless Chrome, meaning there’s no GUI (Graphical User Interface), which is ideal for automation or testing in CI pipelines.
 - Make sure to adjust the Docker image and settings if you need a full Chrome environment with a UI, such as adding VNC for remote desktop or using a larger base image like Ubuntu.
 
+## Building a Docker image using a Dockerfile
 
+![image](https://github.com/user-attachments/assets/cfc4cd72-1117-4a0e-ad3b-3e89a33a723c)
+
+This diagram represents the steps for building a Docker image using a Dockerfile. Here's a more detailed breakdown of each section and its role:
+
+### 1. **FROM alpine**
+   - **Explanation**: 
+     - This line in the Dockerfile specifies the base image to be used, which is `alpine`, a lightweight Linux distribution.
+     - **What happens**: Docker downloads the `alpine` image from the Docker Hub (or from a specified registry).
+     - **Result**: The base image forms the foundation upon which subsequent layers and instructions are added.
+
+### 2. **RUN apk add --update redis**
+   - **Explanation**: 
+     - This command installs `redis` on top of the `alpine` base image. `apk` is the package manager for `alpine`.
+     - The `--update` flag ensures that the package index is updated before installing `redis`.
+
+   - **Detailed steps**:
+     1. **Get image from the previous step**: The Alpine base image is fetched.
+     2. **Create a container out of it**: Docker creates a container based on the Alpine image.
+     3. **Run `apk add --update redis` inside the container**: The Redis package is installed within the temporary container.
+     4. **Take a snapshot of the modified filesystem (FS)**: Once Redis is installed, Docker takes a snapshot of the container’s filesystem, capturing all the changes (i.e., the addition of Redis).
+     5. **Shut down the temporary container**: The container used to perform the installation is no longer needed and is stopped.
+     6. **Get image ready for the next instruction**: The updated image (now with Redis installed) is prepared for the next step in the Dockerfile.
+
+### 3. **CMD ["redis-server"]**
+   - **Explanation**: 
+     - This instruction sets the default command that will be run when a container created from this image is started.
+     - Here, it sets `redis-server` as the primary process for the container.
+
+   - **Detailed steps**:
+     1. **Get image from the last step**: The image from the previous step (Alpine + Redis) is retrieved.
+     2. **Create a container out of it**: A new container is created based on the updated image.
+     3. **Tell container it should run `redis-server` when started**: This step sets the container's default behavior to start Redis when the container is launched.
+     4. **Shut down the temporary container**: This container is only used to modify the command and is then stopped.
+     5. **Get image ready for the next instruction**: The image is now fully ready with Redis installed and configured to run as the default process.
+
+### 4. **Final Image**
+   - **Explanation**: 
+     - There are no more steps. The Docker build process stops here.
+     - **Output**: The final Docker image includes Alpine, Redis installed, and a command (`redis-server`) that will run by default whenever a container based on this image is started.
+
+### Summary
+This diagram outlines the creation of a Docker image in three steps:
+1. Start with an `alpine` base image.
+2. Install `redis` using `apk` in a temporary container, then snapshot the changes.
+3. Set the container’s default command to `redis-server` to ensure Redis starts automatically when the container is run.
+
+Each time a new instruction (like `RUN` or `CMD`) is executed, Docker creates a new layer in the image and commits the changes to a new layer.
 
 
 ## Dockerfile

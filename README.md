@@ -549,7 +549,17 @@ Here’s a simple example of using Docker to run Google Chrome inside a containe
 
 ### 1. **Dockerfile Example**
 
+![image](https://github.com/user-attachments/assets/143a4586-8623-4847-86bb-5c7dfb8f08a8)
+
+
+![image](https://github.com/user-attachments/assets/a9e40f8d-d35f-4657-9d6f-7205476c10a2)
+
+
+
 Here’s a Dockerfile that installs Chrome in a lightweight `alpine` Linux container:
+
+![image](https://github.com/user-attachments/assets/d8535ac2-b3f2-4098-a6c7-376b26d92833)
+
 
 ```Dockerfile
 # Use an official base image

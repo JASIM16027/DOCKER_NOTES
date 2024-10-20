@@ -617,8 +617,6 @@ Once the container is running, you can connect to it via the remote debugging pr
 
 ![image](https://github.com/user-attachments/assets/d8e4dd83-c6bf-4cf4-8ded-d46b8143dd2f)
 
-![image](https://github.com/user-attachments/assets/82e8edcf-a1ac-46d4-8695-8fa0f8efdccb)
-
 
 
 This diagram represents the steps for building a Docker image using a Dockerfile. Here's a more detailed breakdown of each section and its role:
@@ -666,6 +664,199 @@ This diagram outlines the creation of a Docker image in three steps:
 3. Set the container’s default command to `redis-server` to ensure Redis starts automatically when the container is run.
 
 Each time a new instruction (like `RUN` or `CMD`) is executed, Docker creates a new layer in the image and commits the changes to a new layer.
+
+### Docker image-building process based on several Dockerfile instructions
+
+![image](https://github.com/user-attachments/assets/82e8edcf-a1ac-46d4-8695-8fa0f8efdccb)
+
+This image is a visual representation of a Docker image-building process based on several Dockerfile instructions. Let's break it down step by step:
+
+1. **Base Image (Alpine)**:  
+   - The first step is to use an **Alpine Linux base image** (`FROM alpine`). 
+   - Alpine is a lightweight Linux distribution that is commonly used for containers due to its minimal footprint.
+   - The filesystem snapshot (FS Snapshot) contains basic directories such as `bin`, `dev`, `etc`, `home`, and `proc`, but no specific startup command has been defined at this stage.
+
+2. **Adding Redis**:
+   - The next step adds Redis to the image (`RUN apk add --update redis`). 
+   - `apk` is the package manager for Alpine Linux, and here it's used to install Redis.
+   - After this command, a new image is created (labeled **ab932 Image**). The filesystem snapshot now includes Redis binaries.
+   - The startup command remains undefined.
+
+3. **Adding GCC**:
+   - The following command installs GCC (`RUN apk add --update gcc`), which is the GNU Compiler Collection, used for compiling C, C++, and other languages.
+   - This results in another image (again labeled as **ab932 Image**—perhaps due to caching or naming overlap in the visual).
+   - The filesystem snapshot now contains GCC-related binaries in addition to Redis. However, still, no startup command is defined.
+
+4. **Defining the Startup Command**:
+   - Finally, the command to start Redis (`CMD ["redis-server"]`) is added.
+   - This creates the final image (labeled **fc60771eaa08 Image**), which includes everything from the previous steps.
+   - The filesystem snapshot remains the same (with `bin`, `dev`, `etc`, `home`, `proc`, Redis, and GCC), but now the startup command is defined as `redis-server`, which will automatically start Redis when the container runs.
+
+### Summary:
+- The image starts with Alpine Linux as the base.
+- Redis and GCC are installed in separate layers.
+- The final command sets `redis-server` as the container's startup process.
+
+This is a typical Docker build process where each step (or instruction) adds layers to the final image, with the last step determining the container's behavior when it runs.
+
+
+Here’s another example with a Docker image build process to illustrate the layering approach in Docker:
+
+### Example: Node.js Application with a Custom Base Image
+
+Let’s assume we are building a Docker image for a Node.js application, using a custom base image with additional tools installed.
+
+#### Dockerfile
+
+```Dockerfile
+# Step 1: Use Node.js as the base image
+FROM node:14
+
+# Step 2: Install wget (useful for retrieving remote files)
+RUN apt-get update && apt-get install -y wget
+
+# Step 3: Set the working directory inside the container
+WORKDIR /usr/src/app
+
+# Step 4: Copy package.json to the working directory
+COPY package*.json ./
+
+# Step 5: Install dependencies
+RUN npm install
+
+# Step 6: Copy the entire application code into the working directory
+COPY . .
+
+# Step 7: Expose the application's port
+EXPOSE 3000
+
+# Step 8: Define the startup command
+CMD ["npm", "start"]
+```
+
+#### Step-by-Step Breakdown (with Image Layers):
+
+1. **Base Image (Node.js)**:
+   - We start with the official **Node.js 14** image (`FROM node:14`).
+   - This image comes pre-installed with Node.js and npm, providing a base environment for running JavaScript applications.
+
+2. **Adding `wget`**:
+   - The second step installs `wget` using the `apt-get` package manager (`RUN apt-get update && apt-get install -y wget`).
+   - After this step, a new image layer is created with the `wget` binary included.
+
+3. **Setting Working Directory**:
+   - The working directory is set to `/usr/src/app` (`WORKDIR /usr/src/app`), which means any following commands that interact with files will use this directory as the default location.
+   - No change to the file system content happens at this point, but it defines where the application’s files will go.
+
+4. **Copying `package.json`**:
+   - The `package*.json` files (both `package.json` and `package-lock.json`) are copied into the working directory (`COPY package*.json ./`).
+   - These files contain metadata and dependencies for the Node.js project.
+
+5. **Installing Dependencies**:
+   - The dependencies listed in `package.json` are installed with the `npm install` command (`RUN npm install`).
+   - This creates another layer where the installed Node modules are added to the image.
+
+6. **Copying Application Code**:
+   - The rest of the application’s code is copied into the working directory (`COPY . .`).
+   - This includes all the files required to run the Node.js app (e.g., `server.js`, application logic, etc.).
+
+7. **Exposing Port 3000**:
+   - The application will listen on port 3000, so this port is exposed using `EXPOSE 3000`.
+
+8. **Defining the Startup Command**:
+   - Finally, the startup command is defined as `CMD ["npm", "start"]`, which means when the container runs, it will execute `npm start` to launch the Node.js app.
+
+### Image Layer Visualization:
+
+- **Base Layer**: Node.js runtime (from the official Node.js image).
+- **Layer 1**: Adds `wget` through `apt-get`.
+- **Layer 2**: Sets the working directory for the application.
+- **Layer 3**: Copies `package.json` and `package-lock.json` for dependency management.
+- **Layer 4**: Installs Node.js dependencies using `npm install`.
+- **Layer 5**: Copies all the application code into the image.
+- **Layer 6**: Exposes port 3000.
+- **Layer 7**: The container will run the `npm start` command when it is launched.
+
+#### Container Behavior:
+- Once the image is built and the container is started, it will launch the Node.js application, and the application will be accessible on port 3000.
+
+---
+
+### Another Example: Python Web Application with Flask
+
+#### Dockerfile
+
+```Dockerfile
+# Step 1: Use Python as the base image
+FROM python:3.9-slim
+
+# Step 2: Install pipenv for managing dependencies
+RUN pip install pipenv
+
+# Step 3: Set the working directory inside the container
+WORKDIR /app
+
+# Step 4: Copy Pipfile and Pipfile.lock to the working directory
+COPY Pipfile Pipfile.lock ./
+
+# Step 5: Install project dependencies
+RUN pipenv install --system --deploy
+
+# Step 6: Copy the application code into the working directory
+COPY . .
+
+# Step 7: Expose the application's port
+EXPOSE 5000
+
+# Step 8: Define the startup command
+CMD ["python", "app.py"]
+```
+
+#### Breakdown:
+
+1. **Base Image (Python)**:
+   - Uses the official **Python 3.9 slim** image (`FROM python:3.9-slim`), a lightweight version of the Python runtime.
+
+2. **Adding Pipenv**:
+   - Installs `pipenv` (`RUN pip install pipenv`), a tool for managing Python dependencies and virtual environments.
+   
+3. **Working Directory**:
+   - Sets the working directory to `/app` where the application will be stored and run from (`WORKDIR /app`).
+
+4. **Copy Pipfile**:
+   - Copies `Pipfile` and `Pipfile.lock` to the image, which are used to specify the required Python dependencies (`COPY Pipfile Pipfile.lock ./`).
+
+5. **Installing Dependencies**:
+   - Installs all dependencies listed in the `Pipfile` using `pipenv install --system --deploy`. This ensures that the project dependencies are installed in the system rather than in a virtual environment, making them available globally in the container.
+
+6. **Copy Application Code**:
+   - Copies the entire application code into the container (`COPY . .`).
+
+7. **Exposing Port 5000**:
+   - Exposes port 5000 for the Flask app to be accessible.
+
+8. **Defining Startup Command**:
+   - Specifies the startup command as `python app.py`, which runs the Flask application.
+
+---
+
+### Image Layer Visualization:
+
+- **Base Layer**: Python 3.9 slim version.
+- **Layer 1**: Adds `pipenv` for dependency management.
+- **Layer 2**: Working directory is set to `/app`.
+- **Layer 3**: `Pipfile` and `Pipfile.lock` are added for dependency management.
+- **Layer 4**: Installs dependencies with `pipenv install`.
+- **Layer 5**: Copies application code to `/app`.
+- **Layer 6**: Exposes port 5000 for the web server.
+- **Layer 7**: Specifies `python app.py` as the startup command.
+
+#### Container Behavior:
+- Once built and started, the container will run the Flask web application and serve it on port 5000.
+
+Both of these examples show how Docker images are built layer by layer, and how each instruction in the Dockerfile contributes to the final image that will run the application in a container.
+
+
 
 
 ## Dockerfile

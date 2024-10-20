@@ -1800,4 +1800,54 @@ This command will run your development environment on port 3000, using the image
 - `docker build -f Dockerfile.dev .` builds a Docker image using the custom `Dockerfile.dev` instead of the default `Dockerfile`.
 - This is commonly used to differentiate between development and production environments where different dependencies, tools, or configurations are needed.
 
+##  Git-based development workflow with continuous integration (CI) and deployment to AWS
 
+![image](https://github.com/user-attachments/assets/9445d083-3479-49c9-9b9a-5d2c22963646)
+
+
+This image represents a simplified Git-based development workflow with continuous integration (CI) and deployment to AWS. Here's the breakdown:
+
+1. **GitHub Repo**: This is the main source code repository hosted on GitHub. It manages different branches of the code.
+
+2. **Feature Branches**: As a developer (represented by "You"), you create a new branch for each feature you are working on. This is done to isolate your changes from the main `master` branch. You push the changes to the GitHub repository under the `feature` branch.
+
+3. **Pull Request**: After working on your feature, you submit a pull request (PR) to merge the `feature` branch into the `master` branch. This initiates a code review process where your changes are reviewed by others.
+
+4. **Master Branch**: Once the pull request is approved and merged, your changes become part of the `master` branch, which typically represents the production-ready code.
+
+5. **Travis CI**: After merging into the `master` branch, Travis CI (a continuous integration service) automatically runs tests and builds the code. If the tests pass and the build is successful, it continues to the next step.
+
+6. **AWS Hosting**: Once the CI build is successful, the code is deployed to AWS (Amazon Web Services), where the application is hosted. This ensures that the latest changes are live and accessible to users.
+
+In summary:
+- You work on a feature branch.
+- Create a pull request to merge changes into the `master`.
+- Travis CI runs tests and builds the project.
+- If successful, the code is deployed to AWS for production.
+
+##  Git-based development workflow with continuous integration (CI) and deployment to AWS
+
+![image](https://github.com/user-attachments/assets/83026666-e1c3-44ac-a37a-a41ac15e942b)
+
+This process follows common DevOps practices with automated testing and deployment.
+
+
+This diagram represents a typical DevOps workflow for deploying code changes across development (Dev), testing (Test), and production (Prod) environments. Here's an explanation of the flow:
+
+1. **Dev Environment**:
+   - **Create/change features**: Developers create or modify code features.
+   - **Make changes on a non-master branch**: The changes are made in a separate branch, not directly on the master branch.
+   - **Push to GitHub**: The changes are pushed to a remote Git repository like GitHub.
+   - **Create Pull Request to merge with master**: A pull request (PR) is created, suggesting the changes be merged into the master branch after review.
+
+2. **Test Environment**:
+   - **Code pushed to Travis CI**: When the PR is created, the code is automatically pushed to a Continuous Integration (CI) tool like Travis CI for testing.
+   - **Tests run**: Automated tests are executed to ensure the changes don't break existing functionality.
+   - **Merge PR with master**: If the tests pass and the code review is successful, the pull request is merged into the master branch.
+
+3. **Prod Environment**:
+   - **Code pushed to Travis CI**: After merging with master, the code is again pushed to Travis CI for a final round of tests.
+   - **Tests run**: Another round of automated tests is run to ensure stability before deploying to production.
+   - **Deploy to AWS Elastic Beanstalk**: If the tests pass, the code is deployed to the production environment using AWS Elastic Beanstalk.
+
+This workflow shows a standard CI/CD (Continuous Integration/Continuous Deployment) pipeline that emphasizes automated testing and deployment.

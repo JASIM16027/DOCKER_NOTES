@@ -1851,3 +1851,10 @@ This diagram represents a typical DevOps workflow for deploying code changes acr
    - **Deploy to AWS Elastic Beanstalk**: If the tests pass, the code is deployed to the production environment using AWS Elastic Beanstalk.
 
 This workflow shows a standard CI/CD (Continuous Integration/Continuous Deployment) pipeline that emphasizes automated testing and deployment.
+
+
+![image](https://github.com/user-attachments/assets/606407d4-811e-4733-b182-87187a97844d)
+
+![image](https://github.com/user-attachments/assets/17f854c5-27f0-4a8f-bc8a-3dff4569f79f)
+
+

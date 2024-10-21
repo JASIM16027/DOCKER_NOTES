@@ -1547,6 +1547,7 @@ By changing the base image to `python:3.6-alpine`, you reduce the size of the fi
 
 # Docker compose
 
+Docker compose make executing docker run easier.
 
 ### Short Summary:
 - **`docker compose up --build`**: Rebuild images and start the services.

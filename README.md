@@ -1859,3 +1859,62 @@ This workflow shows a standard CI/CD (Continuous Integration/Continuous Deployme
 ![image](https://github.com/user-attachments/assets/17f854c5-27f0-4a8f-bc8a-3dff4569f79f)
 
 
+### **Build Phase** and Run Phase in Production grade Application
+
+
+```
+            Build Phase
+           -------------
+               |
+        +-----------------+
+        | Use node:alpine |
+        +-----------------+
+               |
+ +------------------------------+
+ | Copy the package.json file   |
+ +------------------------------+
+               |
+     +-----------------------+
+     | Install dependencies  |
+     +-----------------------+
+               |
+      +----------------------+
+      | Run 'npm run build'  |
+      +----------------------+
+               |
+               v
+
+            Run Phase
+           ------------
+               |
+        +----------------+
+        |   Use nginx    |
+        +----------------+
+               |
+ +------------------------------------+
+ | Copy over the result of 'npm run   |
+ | build'                             |
+ +------------------------------------+
+               |
+      +------------------+
+      |   Start nginx    |
+      +------------------+
+```
+
+This diagram represents a Docker multi-stage build process for deploying a Node.js application. It is divided into two phases:
+
+### 1. Build Phase
+   - **Use `node:alpine`**: A lightweight version of the Node.js image (Alpine Linux) is used to keep the build environment small.
+   - **Copy the `package.json` file**: This step involves copying only the `package.json` file to the container. This is done first to leverage Docker’s caching layer, allowing faster builds if dependencies don’t change.
+   - **Install dependencies**: With the `package.json` file copied, dependencies are installed.
+   - **Run `npm run build`**: This command builds the production-ready version of the app, generating static files (usually placed in a `build` or `dist` folder).
+
+### 2. Run Phase
+   - **Use `nginx`**: The application will run on an Nginx server, so an Nginx Docker image is used in this phase.
+   - **Copy over the result of `npm run build`**: The static files from the build phase are copied to the Nginx container.
+   - **Start Nginx**: Nginx serves the static files, allowing the application to be accessible in production.
+
+This setup is efficient because the final Docker image only includes the Nginx server and the static files, making it lightweight and optimized for deployment.
+
+
+

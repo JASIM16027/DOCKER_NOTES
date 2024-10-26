@@ -1916,5 +1916,32 @@ This diagram represents a Docker multi-stage build process for deploying a Node.
 
 This setup is efficient because the final Docker image only includes the Nginx server and the static files, making it lightweight and optimized for deployment.
 
+### Sample Example 
+
+```dockerfile
+# Build Phase
+FROM node:alpine AS builder
+WORKDIR /app
+COPY package.json .
+RUN npm install
+COPY . .
+RUN npm run build
+
+# Run Phase
+FROM nginx
+COPY --from=builder /app/build /usr/share/nginx/html
+```
+
+### Explanation
+- **Build Phase**:
+  - Starts from a lightweight Node.js image (`node:alpine`).
+  - Sets the working directory to `/app`.
+  - Copies `package.json` for dependency installation.
+  - Copies the rest of the application files and builds the project.
+
+- **Run Phase**:
+  - Uses the `nginx` image to serve the static files.
+  - Copies the built files from the build phase into the Nginx HTML directory (`/usr/share/nginx/html`).
+
 
 

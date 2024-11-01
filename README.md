@@ -195,6 +195,12 @@ When comparing Docker containers to virtual machines (VMs), it's essential to un
 
 ![image](https://github.com/user-attachments/assets/5c6f9b7c-a2d1-4f72-b406-e308114dea46)
 
+
+- Higher Utilization of underlying resources
+- Virtual machine also consume higher disk space(such as GB)
+- Take long time to boot compare to docker container
+- complete isolation
+
 **Overview:**
 - VMs run on a hypervisor, which is a software layer that allows multiple operating systems to share a single hardware host.
 - Each VM includes a full operating system and emulated hardware.

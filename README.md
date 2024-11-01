@@ -121,9 +121,6 @@ By maintaining a clear separation between these two layers, operating systems en
 - Docker is a platform for creating and managing containers.
 - Components: Docker client (CLI), Docker server (daemon), Docker machine, Docker images, Docker Hub, Docker Compose.
 
-![image](https://github.com/user-attachments/assets/5c6f9b7c-a2d1-4f72-b406-e308114dea46)
-
-
 ### Workflow of Docker: "docker run -it <some-image>" - explained
 1. Execute `docker run -it <some-image>` in the terminal.
 2. Docker CLI validates and sends the command to the Docker server.
@@ -196,7 +193,7 @@ When comparing Docker containers to virtual machines (VMs), it's essential to un
 
 ### Virtual Machines (VMs)
 
-![image](https://github.com/user-attachments/assets/a72334df-5f17-441f-a16b-5cc91a2c58fe)
+![image](https://github.com/user-attachments/assets/5c6f9b7c-a2d1-4f72-b406-e308114dea46)
 
 **Overview:**
 - VMs run on a hypervisor, which is a software layer that allows multiple operating systems to share a single hardware host.

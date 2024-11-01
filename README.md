@@ -46,10 +46,6 @@ By maintaining a clear separation between these two layers, operating systems en
 
 ## Processor
 
-![image](https://github.com/JASIM16027/DOCKER_NOTE/assets/39296494/2c03909d-db29-40dc-8be5-19d8c77a3fa2)
-
-
-
 ### Register Set
 - A small amount of very fast memory within the CPU.
 - Holds data that the CPU is currently working on or needs frequently.
@@ -104,11 +100,140 @@ By maintaining a clear separation between these two layers, operating systems en
 - Threads also undergo context switching.
 
 - ``` When the computer starts, the operating system's code is executed, and the processor only knows the operating system. ```
+
+
+## Docker
+
+
+### Before Docker - Hypervisor
+- Hypervisors create and manage virtual machines (VMs) that emulate entire computer systems, running full operating systems and requiring dedicated resources.
+
+### Hypervisor vs Docker
+- Hypervisors virtualize hardware to run multiple VMs on a single machine.
+- Docker virtualizes the OS, allowing containers to share the host OS kernel, making them more lightweight.
+
+### Why do we need Docker?
+- Docker provides lightweight, isolated containers with faster startup times, using fewer resources, and allowing efficient packaging and deployment of applications.
+
+### What is Docker? All parts of the Docker ecosystem.
+- Docker is a platform for creating and managing containers.
+- Components: Docker client (CLI), Docker server (daemon), Docker machine, Docker images, Docker Hub, Docker Compose.
+
+![image](https://github.com/user-attachments/assets/5c6f9b7c-a2d1-4f72-b406-e308114dea46)
+
+
+
+### Workflow of Docker: "docker run -it <some-image>" - explained
+1. Execute `docker run -it <some-image>` in the terminal.
+2. Docker CLI validates and sends the command to the Docker server.
+3. Docker server pulls the image from Docker Hub if not available locally.
+4. Docker server creates a container based on the image.
+5. The `-it` option makes the container run in interactive mode, providing a shell prompt for interaction.
+6. User interacts with the container via the command prompt.
+
+### Docker Image and its parts
+- A Docker image is a snapshot of a file system containing software, dependencies, and configurations.
+- Consists of a file system snapshot and a startup command.
+
+### "username@machineName:/$" - explained
+- The command prompt inside the Docker container:
+  - `username`: User within the container.
+  - `machineName`: Container's virtual machine or host system name.
+  - `/$`: Current working directory inside the container.
+
+### Kernel, Namespacing, and Control Groups
+- **Kernel:** Core of the OS interacting with hardware and providing essential services.
+- **Namespacing:** Linux kernel feature for resource isolation and process-level virtualization.
+- **Control Groups (cgroups):** Kernel feature managing and limiting resources available to processes within a container.
+
+### What is a Container? (Virtual Computer)
+- A lightweight, isolated runtime environment encapsulating an application and its dependencies.
+- Shares the host OS kernel but has its own isolated file system and resources.
+
+![image](https://github.com/user-attachments/assets/1f2e8eb3-d7bd-4c41-85c6-268b131abd28)
+
+
+
+When comparing Docker containers to virtual machines (VMs), it's essential to understand their fundamental differences, use cases, and advantages.
+
+### Docker Containers
+
+**Overview:**
+- Docker is a platform that uses OS-level virtualization to deliver software in packages called containers.
+- Containers share the host system's kernel but run in isolated user spaces.
+
+**Advantages:**
+1. **Lightweight:** Containers are more lightweight than VMs because they share the host OS kernel, resulting in less overhead.
+2. **Performance:** Since they don't need a full OS to boot, containers can start up and shut down much faster than VMs.
+3. **Portability:** Containers encapsulate all dependencies and configurations, making them highly portable across different environments.
+4. **Resource Efficiency:** Containers use resources more efficiently due to shared OS components and reduced overhead.
+
+**Use Cases:**
+- Microservices architecture
+- Continuous integration/continuous deployment (CI/CD) pipelines
+- Running multiple applications on a single OS instance
+- Development and testing environments
+
+### Virtual Machines (VMs)
+
+![image](https://github.com/user-attachments/assets/a72334df-5f17-441f-a16b-5cc91a2c58fe)
+
+**Overview:**
+- VMs run on a hypervisor, which is a software layer that allows multiple operating systems to share a single hardware host.
+- Each VM includes a full operating system and emulated hardware.
+
+**Advantages:**
+1. **Isolation:** VMs offer complete isolation since each VM runs a full OS. This makes them suitable for running multiple, different OS environments on the same physical hardware.
+2. **Compatibility:** VMs can run any operating system that the hypervisor supports, making them more versatile for running different OSes.
+3. **Security:** The full isolation provided by VMs can be beneficial for security-sensitive applications.
+
+**Use Cases:**
+- Running multiple OS instances on a single hardware system
+- Legacy application support
+- Use cases requiring strong isolation between applications
+- Testing and development across different OS environments
+
+### Key Differences
+
+1. **Boot Time:**
+   - **Containers:** Seconds
+   - **VMs:** Minutes
+
+2. **Resource Utilization:**
+   - **Containers:** More efficient, share the host OS kernel
+   - **VMs:** Less efficient, each VM requires a full OS
+
+3. **Isolation:**
+   - **Containers:** Process-level isolation
+   - **VMs:** Full OS-level isolation
+
+4. **Portability:**
+   - **Containers:** Highly portable, suitable for microservices
+   - **VMs:** Less portable, more suited for running different OSes
+
+### Choosing Between Docker and VMs
+
+- **Use Docker if:**
+  - You need a lightweight, fast, and portable solution.
+  - Your applications are designed as microservices.
+  - You require efficient use of system resources.
+  - You need a streamlined development and deployment pipeline.
+
+- **Use VMs if:**
+  - You need strong isolation between applications.
+  - You need to run different operating systems on the same hardware.
+  - Your application requires a full OS environment.
+  - You are dealing with legacy systems or applications.
+
+In summary, Docker containers are optimal for scenarios where resource efficiency, fast deployment, and application portability are critical. In contrast, VMs are more suitable for situations requiring complete isolation and the ability to run different operating systems on the same hardware.
+
+
+
 ### Introduction to Docker and Its Ecosystem
 
 #### Background: Virtualization Before Docker
 
-![image](https://github.com/JASIM16027/DOCKER_NOTE/assets/39296494/10074293-35ae-4aca-afe0-f71204cfa1b6)
+![image](https://github.com/user-attachments/assets/a72334df-5f17-441f-a16b-5cc91a2c58fe)
 
 
 **Hypervisors:**
@@ -133,158 +258,6 @@ Docker makes it really easy to install and run software without worrying about s
 - **Isolated:** Containers provide process and filesystem isolation, ensuring applications run in their own environments.
 - **Fast Startup Times:** Containers can start almost instantly because they don't require booting a full OS.
 - **Efficient Resource Usage:** Containers use fewer resources compared to VMs, as they share the host OS kernel and other resources.
-
-### What is Docker?
-
-Docker is a platform and ecosystem designed to develop, ship, and run applications inside containers. It consists of several key components that work together to manage containerized applications efficiently.
-
-To better understand docker see the diagram : https://app.diagrams.net/?src=about#G1bzvbHFhDX4LxF4KLwHnEul0Mtnb06XmE#%7B%22pageId%22%3A%22Jy9q0EDmPOdd4UMKcCcg%22%7D
-
-Got it! Here's the information organized into a table format with a sample command:
-
-| Category            | Command                     | Description                                                  | Example                                              |
-|---------------------|-----------------------------|--------------------------------------------------------------|------------------------------------------------------|
-| Container Management| docker run                  | Create and start a new container from an image.              | `docker run -d --name my_container nginx`           |
-|                     | docker start                | Start one or more stopped containers.                        | `docker start my_container`                         |
-|                     | docker stop                 | Stop one or more running containers.                        | `docker stop my_container`                          |
-|                     | docker restart              | Restart one or more containers.                              | `docker restart my_container`                       |
-|                     | docker rm                   | Remove one or more containers.                               | `docker rm my_container`                            |
-|                     | docker ps                   | List running containers.                                     | `docker ps`                                          |
-|                     | docker ps -a                | List all containers (including stopped ones).                | `docker ps -a`                                       |
-|                     | docker exec                 | Run a command inside a running container.                   | `docker exec -it my_container bash`                 |
-|                     | docker logs                 | Fetch the logs of a container.                               | `docker logs my_container`                          |
-| Image Management    | docker build                | Build a Docker image from a Dockerfile.                      | `docker build -t my_image .`                        |
-|                     | docker pull                 | Pull an image or a repository from a registry.              | `docker pull nginx`                                 |
-|                     | docker push                 | Push an image or a repository to a registry.                | `docker push my_username/my_image`                  |
-|                     | docker images               | List all locally available images.                           | `docker images`                                     |
-|                     | docker rmi                  | Remove one or more images.                                   | `docker rmi my_image`                               |
-|                     | docker tag                  | Tag an image with a new name and/or tag.                    | `docker tag my_image my_new_image`                  |
-| Network Management  | docker network create       | Create a new Docker network.                                 | `docker network create my_network`                  |
-|                     | docker network ls           | List Docker networks.                                        | `docker network ls`                                 |
-|                     | docker network inspect      | Display detailed information on one or more networks.        | `docker network inspect my_network`                 |
-|                     | docker network connect      | Connect a container to a network.                            | `docker network connect my_network my_container`    |
-|                     | docker network disconnect   | Disconnect a container from a network.                       | `docker network disconnect my_network my_container` |
-| Volume Management   | docker volume create        | Create a new volume.                                         | `docker volume create my_volume`                    |
-|                     | docker volume ls            | List Docker volumes.                                         | `docker volume ls`                                  |
-|                     | docker volume inspect       | Display detailed information on one or more volumes.         | `docker volume inspect my_volume`                   |
-|                     | docker volume rm            | Remove one or more volumes.                                  | `docker volume rm my_volume`                        |
-|                     | docker volume prune         | Remove all unused volumes.                                   | `docker volume prune`                               |
-| System Management   | docker info                 | Display system-wide information.                             | `docker info`                                       |
-|                     | docker version              | Show the Docker version information.                         | `docker version`                                    |
-|                     | docker system df            | Show Docker disk usage.                                      | `docker system df`                                  |
-|                     | docker system prune         | Remove unused data (containers, networks, images, volumes). | `docker system prune`                               |
-|                     | docker stats                | Display a live stream of container resource usage statistics.| `docker stats`                                      |
-| Registry Management | docker login                | Log in to a Docker registry.                                 | `docker login`                                      |
-|                     | docker logout               | Log out from a Docker registry.                              | `docker logout`                                     |
-|                     | docker search               | Search for Docker images on Docker Hub.                      | `docker search nginx`                               |
-
-
-Sure, here's the rewritten list of Docker networking commands:
-
-**List available networks:**
-```
-docker network ls
-```
-
-**Remove one or more networks:**
-```
-docker network rm [network]
-```
-
-**Show information on one or more networks:**
-```
-docker network inspect [network]
-```
-
-**Connect a container to a network:**
-```
-docker network connect [network] [container]
-```
-
-**Disconnect a container from a network:**
-```
-docker network disconnect [network] [container]
-```
-
-Here's the list of Docker image-related commands:
-
-**Create an image from a Dockerfile:**
-```
-docker build [dockerfile-path]
-```
-
-**Build an image from a Dockerfile located in the current directory:**
-```
-docker build .
-```
-
-**Create an image from a Dockerfile and tag it:**
-```
-docker build -t [name]:[tag] [dockerfile-path]
-```
-
-**Specify a file to build from:**
-```
-docker build -f [file-path]
-```
-
-**Pull an image from a registry:**
-```
-docker pull [image]
-```
-
-**Push an image to a registry:**
-```
-docker push [image]
-```
-
-**Create an image from a tarball:**
-```
-docker import [url/file]
-```
-
-**Create an image from a container:**
-```
-docker commit [container] [new-image]
-```
-
-**Tag an image:**
-```
-docker tag [image] [image]:[tag]
-```
-
-**Show all locally stored top-level images:**
-```
-docker images
-```
-
-**Show history for an image:**
-```
-docker history [image]
-```
-
-**Remove an image:**
-```
-docker rmi [image]
-```
-
-**Load an image from a tar archive or stdin:**
-```
-docker load --input [tar-file]
-```
-
-**Save an image to a tar archive file using Docker save command:**
-```
-docker save [image] > [tar-file]
-```
-
-**Remove unused images:**
-```
-docker image prune
-```
-
-Replace `[dockerfile-path]`, `[name]`, `[tag]`, `[file-path]`, `[image]`, `[url/file]`, `[container]`, and `[new-image]` with the appropriate values according to your use case.
-
 
 
 #### Components of the Docker Ecosystem
@@ -1059,167 +1032,8 @@ networks:
 Docker revolutionizes the way applications are developed, shipped, and run by providing a lightweight, efficient, and consistent environment for application execution. Its ecosystem, comprising various tools and services, enhances the capabilities of container management, making it a powerful solution for modern application development and deployment.
 
 
-## Docker
 
 
-### Before Docker - Hypervisor
-- Hypervisors create and manage virtual machines (VMs) that emulate entire computer systems, running full operating systems and requiring dedicated resources.
-
-### Hypervisor vs Docker
-- Hypervisors virtualize hardware to run multiple VMs on a single machine.
-- Docker virtualizes the OS, allowing containers to share the host OS kernel, making them more lightweight.
-
-### Why do we need Docker?
-- Docker provides lightweight, isolated containers with faster startup times, using fewer resources, and allowing efficient packaging and deployment of applications.
-
-### What is Docker? All parts of the Docker ecosystem.
-- Docker is a platform for creating and managing containers.
-- Components: Docker client (CLI), Docker server (daemon), Docker machine, Docker images, Docker Hub, Docker Compose.
-
-![image](https://github.com/user-attachments/assets/5c6f9b7c-a2d1-4f72-b406-e308114dea46)
-
-![image](https://github.com/user-attachments/assets/a72334df-5f17-441f-a16b-5cc91a2c58fe)
-
-### Workflow of Docker: "docker run -it <some-image>" - explained
-1. Execute `docker run -it <some-image>` in the terminal.
-2. Docker CLI validates and sends the command to the Docker server.
-3. Docker server pulls the image from Docker Hub if not available locally.
-4. Docker server creates a container based on the image.
-5. The `-it` option makes the container run in interactive mode, providing a shell prompt for interaction.
-6. User interacts with the container via the command prompt.
-
-### Docker Image and its parts
-- A Docker image is a snapshot of a file system containing software, dependencies, and configurations.
-- Consists of a file system snapshot and a startup command.
-
-### "username@machineName:/$" - explained
-- The command prompt inside the Docker container:
-  - `username`: User within the container.
-  - `machineName`: Container's virtual machine or host system name.
-  - `/$`: Current working directory inside the container.
-
-### Kernel, Namespacing, and Control Groups
-- **Kernel:** Core of the OS interacting with hardware and providing essential services.
-- **Namespacing:** Linux kernel feature for resource isolation and process-level virtualization.
-- **Control Groups (cgroups):** Kernel feature managing and limiting resources available to processes within a container.
-
-### What is a Container? (Virtual Computer)
-- A lightweight, isolated runtime environment encapsulating an application and its dependencies.
-- Shares the host OS kernel but has its own isolated file system and resources.
-
-![image](https://github.com/JASIM16027/Docker_Notes/assets/39296494/a9200b60-3b37-4b0f-a4e6-9601515683b4)
-
-
-When comparing Docker containers to virtual machines (VMs), it's essential to understand their fundamental differences, use cases, and advantages.
-
-### Docker Containers
-
-**Overview:**
-- Docker is a platform that uses OS-level virtualization to deliver software in packages called containers.
-- Containers share the host system's kernel but run in isolated user spaces.
-
-**Advantages:**
-1. **Lightweight:** Containers are more lightweight than VMs because they share the host OS kernel, resulting in less overhead.
-2. **Performance:** Since they don't need a full OS to boot, containers can start up and shut down much faster than VMs.
-3. **Portability:** Containers encapsulate all dependencies and configurations, making them highly portable across different environments.
-4. **Resource Efficiency:** Containers use resources more efficiently due to shared OS components and reduced overhead.
-
-**Use Cases:**
-- Microservices architecture
-- Continuous integration/continuous deployment (CI/CD) pipelines
-- Running multiple applications on a single OS instance
-- Development and testing environments
-
-### Virtual Machines (VMs)
-
-**Overview:**
-- VMs run on a hypervisor, which is a software layer that allows multiple operating systems to share a single hardware host.
-- Each VM includes a full operating system and emulated hardware.
-
-**Advantages:**
-1. **Isolation:** VMs offer complete isolation since each VM runs a full OS. This makes them suitable for running multiple, different OS environments on the same physical hardware.
-2. **Compatibility:** VMs can run any operating system that the hypervisor supports, making them more versatile for running different OSes.
-3. **Security:** The full isolation provided by VMs can be beneficial for security-sensitive applications.
-
-**Use Cases:**
-- Running multiple OS instances on a single hardware system
-- Legacy application support
-- Use cases requiring strong isolation between applications
-- Testing and development across different OS environments
-
-### Key Differences
-
-1. **Boot Time:**
-   - **Containers:** Seconds
-   - **VMs:** Minutes
-
-2. **Resource Utilization:**
-   - **Containers:** More efficient, share the host OS kernel
-   - **VMs:** Less efficient, each VM requires a full OS
-
-3. **Isolation:**
-   - **Containers:** Process-level isolation
-   - **VMs:** Full OS-level isolation
-
-4. **Portability:**
-   - **Containers:** Highly portable, suitable for microservices
-   - **VMs:** Less portable, more suited for running different OSes
-
-### Choosing Between Docker and VMs
-
-- **Use Docker if:**
-  - You need a lightweight, fast, and portable solution.
-  - Your applications are designed as microservices.
-  - You require efficient use of system resources.
-  - You need a streamlined development and deployment pipeline.
-
-- **Use VMs if:**
-  - You need strong isolation between applications.
-  - You need to run different operating systems on the same hardware.
-  - Your application requires a full OS environment.
-  - You are dealing with legacy systems or applications.
-
-In summary, Docker containers are optimal for scenarios where resource efficiency, fast deployment, and application portability are critical. In contrast, VMs are more suitable for situations requiring complete isolation and the ability to run different operating systems on the same hardware.
-
-
-
-
-### How do Windows and Mac have Containers without Namespacing?
-- Use virtualization technologies (Hyper-V for Windows, HyperKit for Mac) to create lightweight VMs running a Linux distribution (WSL for Windows).
-- Containers are deployed within these VMs, providing an isolated runtime environment.
-
-### Docker Client & Server
-- **Docker Client:** CLI tool for interacting with Docker.
-- **Docker Server (Daemon):** Manages containers, handles image operations, and communicates with the host OS, similar to an OS for Docker machines.
-
-### How to install images from Docker Hub
-- Use `docker pull <image-name>` to install an image from Docker Hub.
-
-### Set default command within Docker image
-- Use the `CMD` instruction in a Dockerfile to set a default command to be executed when starting a container.
-
-### Checking container status
-- Use `docker ps` to check the status of running containers, providing information like container ID, image, command, created time, status, and names.
-
-### Remove command for unused containers
-- Use `docker rm <container-id>` to remove unused containers.
-- Use `docker system prune` to remove all stopped containers, unused networks, dangling images, and build cache.
-
-### Difference between `docker kill` and `docker rm` command
-- `docker kill`: Sends a termination signal to a running container, forcing it to stop immediately.
-- `docker rm`: Removes a stopped container from the system.
-
-### "bin" folder with each image
-- Contains binary executable files for commands and utilities included in the image.
-
-### Install Ubuntu image and explore Linux commands
-- Install the Ubuntu image with `docker pull ubuntu`.
-- Run a container from the image using `docker run -it ubuntu`.
-- Explore and execute Linux commands inside the container, such as `ls`, `cd`, `pwd`, etc.
-
-### Difference between host/normal user and root user
-- **Normal User:** Limited permissions, cannot perform certain administrative tasks.
-- **Root User:** Administrative privileges, can access and modify system files, install software, and make system-wide changes.
 
 
 ### Docker Port Forwarding
@@ -1971,4 +1785,193 @@ COPY --from=builder /app/build /usr/share/nginx/html
   - Copies the built files from the build phase into the Nginx HTML directory (`/usr/share/nginx/html`).
 
 
+
+
+### What is Docker?
+
+Docker is a platform and ecosystem designed to develop, ship, and run applications inside containers. It consists of several key components that work together to manage containerized applications efficiently.
+
+To better understand docker see the diagram : https://app.diagrams.net/?src=about#G1bzvbHFhDX4LxF4KLwHnEul0Mtnb06XmE#%7B%22pageId%22%3A%22Jy9q0EDmPOdd4UMKcCcg%22%7D
+
+Got it! Here's the information organized into a table format with a sample command:
+
+| Category            | Command                     | Description                                                  | Example                                              |
+|---------------------|-----------------------------|--------------------------------------------------------------|------------------------------------------------------|
+| Container Management| docker run                  | Create and start a new container from an image.              | `docker run -d --name my_container nginx`           |
+|                     | docker start                | Start one or more stopped containers.                        | `docker start my_container`                         |
+|                     | docker stop                 | Stop one or more running containers.                        | `docker stop my_container`                          |
+|                     | docker restart              | Restart one or more containers.                              | `docker restart my_container`                       |
+|                     | docker rm                   | Remove one or more containers.                               | `docker rm my_container`                            |
+|                     | docker ps                   | List running containers.                                     | `docker ps`                                          |
+|                     | docker ps -a                | List all containers (including stopped ones).                | `docker ps -a`                                       |
+|                     | docker exec                 | Run a command inside a running container.                   | `docker exec -it my_container bash`                 |
+|                     | docker logs                 | Fetch the logs of a container.                               | `docker logs my_container`                          |
+| Image Management    | docker build                | Build a Docker image from a Dockerfile.                      | `docker build -t my_image .`                        |
+|                     | docker pull                 | Pull an image or a repository from a registry.              | `docker pull nginx`                                 |
+|                     | docker push                 | Push an image or a repository to a registry.                | `docker push my_username/my_image`                  |
+|                     | docker images               | List all locally available images.                           | `docker images`                                     |
+|                     | docker rmi                  | Remove one or more images.                                   | `docker rmi my_image`                               |
+|                     | docker tag                  | Tag an image with a new name and/or tag.                    | `docker tag my_image my_new_image`                  |
+| Network Management  | docker network create       | Create a new Docker network.                                 | `docker network create my_network`                  |
+|                     | docker network ls           | List Docker networks.                                        | `docker network ls`                                 |
+|                     | docker network inspect      | Display detailed information on one or more networks.        | `docker network inspect my_network`                 |
+|                     | docker network connect      | Connect a container to a network.                            | `docker network connect my_network my_container`    |
+|                     | docker network disconnect   | Disconnect a container from a network.                       | `docker network disconnect my_network my_container` |
+| Volume Management   | docker volume create        | Create a new volume.                                         | `docker volume create my_volume`                    |
+|                     | docker volume ls            | List Docker volumes.                                         | `docker volume ls`                                  |
+|                     | docker volume inspect       | Display detailed information on one or more volumes.         | `docker volume inspect my_volume`                   |
+|                     | docker volume rm            | Remove one or more volumes.                                  | `docker volume rm my_volume`                        |
+|                     | docker volume prune         | Remove all unused volumes.                                   | `docker volume prune`                               |
+| System Management   | docker info                 | Display system-wide information.                             | `docker info`                                       |
+|                     | docker version              | Show the Docker version information.                         | `docker version`                                    |
+|                     | docker system df            | Show Docker disk usage.                                      | `docker system df`                                  |
+|                     | docker system prune         | Remove unused data (containers, networks, images, volumes). | `docker system prune`                               |
+|                     | docker stats                | Display a live stream of container resource usage statistics.| `docker stats`                                      |
+| Registry Management | docker login                | Log in to a Docker registry.                                 | `docker login`                                      |
+|                     | docker logout               | Log out from a Docker registry.                              | `docker logout`                                     |
+|                     | docker search               | Search for Docker images on Docker Hub.                      | `docker search nginx`                               |
+
+
+Sure, here's the rewritten list of Docker networking commands:
+
+**List available networks:**
+```
+docker network ls
+```
+
+**Remove one or more networks:**
+```
+docker network rm [network]
+```
+
+**Show information on one or more networks:**
+```
+docker network inspect [network]
+```
+
+**Connect a container to a network:**
+```
+docker network connect [network] [container]
+```
+
+**Disconnect a container from a network:**
+```
+docker network disconnect [network] [container]
+```
+
+Here's the list of Docker image-related commands:
+
+**Create an image from a Dockerfile:**
+```
+docker build [dockerfile-path]
+```
+
+**Build an image from a Dockerfile located in the current directory:**
+```
+docker build .
+```
+
+**Create an image from a Dockerfile and tag it:**
+```
+docker build -t [name]:[tag] [dockerfile-path]
+```
+
+**Specify a file to build from:**
+```
+docker build -f [file-path]
+```
+
+**Pull an image from a registry:**
+```
+docker pull [image]
+```
+
+**Push an image to a registry:**
+```
+docker push [image]
+```
+
+**Create an image from a tarball:**
+```
+docker import [url/file]
+```
+
+**Create an image from a container:**
+```
+docker commit [container] [new-image]
+```
+
+**Tag an image:**
+```
+docker tag [image] [image]:[tag]
+```
+
+**Show all locally stored top-level images:**
+```
+docker images
+```
+
+**Show history for an image:**
+```
+docker history [image]
+```
+
+**Remove an image:**
+```
+docker rmi [image]
+```
+
+**Load an image from a tar archive or stdin:**
+```
+docker load --input [tar-file]
+```
+
+**Save an image to a tar archive file using Docker save command:**
+```
+docker save [image] > [tar-file]
+```
+
+**Remove unused images:**
+```
+docker image prune
+```
+
+Replace `[dockerfile-path]`, `[name]`, `[tag]`, `[file-path]`, `[image]`, `[url/file]`, `[container]`, and `[new-image]` with the appropriate values according to your use case.
+
+### How do Windows and Mac have Containers without Namespacing?
+- Use virtualization technologies (Hyper-V for Windows, HyperKit for Mac) to create lightweight VMs running a Linux distribution (WSL for Windows).
+- Containers are deployed within these VMs, providing an isolated runtime environment.
+
+### Docker Client & Server
+- **Docker Client:** CLI tool for interacting with Docker.
+- **Docker Server (Daemon):** Manages containers, handles image operations, and communicates with the host OS, similar to an OS for Docker machines.
+
+### How to install images from Docker Hub
+- Use `docker pull <image-name>` to install an image from Docker Hub.
+
+### Set default command within Docker image
+- Use the `CMD` instruction in a Dockerfile to set a default command to be executed when starting a container.
+
+### Checking container status
+- Use `docker ps` to check the status of running containers, providing information like container ID, image, command, created time, status, and names.
+
+### Remove command for unused containers
+- Use `docker rm <container-id>` to remove unused containers.
+- Use `docker system prune` to remove all stopped containers, unused networks, dangling images, and build cache.
+
+### Difference between `docker kill` and `docker rm` command
+- `docker kill`: Sends a termination signal to a running container, forcing it to stop immediately.
+- `docker rm`: Removes a stopped container from the system.
+
+### "bin" folder with each image
+- Contains binary executable files for commands and utilities included in the image.
+
+### Install Ubuntu image and explore Linux commands
+- Install the Ubuntu image with `docker pull ubuntu`.
+- Run a container from the image using `docker run -it ubuntu`.
+- Explore and execute Linux commands inside the container, such as `ls`, `cd`, `pwd`, etc.
+
+### Difference between host/normal user and root user
+- **Normal User:** Limited permissions, cannot perform certain administrative tasks.
+- **Root User:** Administrative privileges, can access and modify system files, install software, and make system-wide changes.
 

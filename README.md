@@ -122,7 +122,6 @@ By maintaining a clear separation between these two layers, operating systems en
 ![image](https://github.com/user-attachments/assets/5c6f9b7c-a2d1-4f72-b406-e308114dea46)
 
 
-
 ### Workflow of Docker: "docker run -it <some-image>" - explained
 1. Execute `docker run -it <some-image>` in the terminal.
 2. Docker CLI validates and sends the command to the Docker server.
@@ -173,6 +172,25 @@ When comparing Docker containers to virtual machines (VMs), it's essential to un
 - Continuous integration/continuous deployment (CI/CD) pipelines
 - Running multiple applications on a single OS instance
 - Development and testing environments
+
+
+#### Background: Virtualization Before Docker
+
+![image](https://github.com/user-attachments/assets/a72334df-5f17-441f-a16b-5cc91a2c58fe)
+
+
+**Hypervisors:**
+- Hypervisors are software, firmware, or hardware that create and manage virtual machines (VMs).
+- They allow multiple VMs to run on a single physical machine by virtualizing the underlying hardware.
+- Each VM runs a full operating system and requires dedicated resources, such as CPU, memory, and storage.
+
+**Limitations of Hypervisors:**
+- VMs are resource-intensive since each VM requires its own OS.
+- VMs have longer startup times due to the need to boot an entire OS.
+- Managing and maintaining multiple VMs can be complex and inefficient.
+
+
+
 
 ### Virtual Machines (VMs)
 
@@ -229,27 +247,9 @@ In summary, Docker containers are optimal for scenarios where resource efficienc
 
 
 
-### Introduction to Docker and Its Ecosystem
+### **Why Do We Need Docker?**
 
-#### Background: Virtualization Before Docker
-
-![image](https://github.com/user-attachments/assets/a72334df-5f17-441f-a16b-5cc91a2c58fe)
-
-
-**Hypervisors:**
-- Hypervisors are software, firmware, or hardware that create and manage virtual machines (VMs).
-- They allow multiple VMs to run on a single physical machine by virtualizing the underlying hardware.
-- Each VM runs a full operating system and requires dedicated resources, such as CPU, memory, and storage.
-
-**Limitations of Hypervisors:**
-- VMs are resource-intensive since each VM requires its own OS.
-- VMs have longer startup times due to the need to boot an entire OS.
-- Managing and maintaining multiple VMs can be complex and inefficient.
-
-### Docker: A Solution to Traditional Virtualization Limitations
-
-**Why Do We Need Docker?**
-
+#### Docker: A Solution to Traditional Virtualization Limitations
 ![image](https://github.com/user-attachments/assets/04c81395-89f8-438f-bfc9-604259d6008c)
 
 Docker makes it really easy to install and run software without worrying about setup or dependencies.
@@ -260,7 +260,7 @@ Docker makes it really easy to install and run software without worrying about s
 - **Efficient Resource Usage:** Containers use fewer resources compared to VMs, as they share the host OS kernel and other resources.
 
 
-#### Components of the Docker Ecosystem
+### Components of the Docker Ecosystem
 
 ![image](https://github.com/user-attachments/assets/576d93dc-228b-4834-bf43-6fbacb0409aa)
 

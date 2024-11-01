@@ -105,6 +105,8 @@ By maintaining a clear separation between these two layers, operating systems en
 
 
 ## Docker
+When you install docker on your machine. the file structure will be like this:
+![image](https://github.com/user-attachments/assets/0c00969e-cb07-4403-8e05-0790f18f6fa6)
 
 
 ### Before Docker - Hypervisor

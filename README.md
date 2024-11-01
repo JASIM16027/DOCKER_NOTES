@@ -1061,6 +1061,7 @@ Docker revolutionizes the way applications are developed, shipped, and run by pr
 
 ## Docker
 
+
 ### Before Docker - Hypervisor
 - Hypervisors create and manage virtual machines (VMs) that emulate entire computer systems, running full operating systems and requiring dedicated resources.
 
@@ -1075,7 +1076,9 @@ Docker revolutionizes the way applications are developed, shipped, and run by pr
 - Docker is a platform for creating and managing containers.
 - Components: Docker client (CLI), Docker server (daemon), Docker machine, Docker images, Docker Hub, Docker Compose.
 
-  ![image](https://github.com/JASIM16027/Docker_Notes/assets/39296494/6182a53b-3f59-4a52-9cdd-552a6c155d72)
+![image](https://github.com/user-attachments/assets/5c6f9b7c-a2d1-4f72-b406-e308114dea46)
+
+![image](https://github.com/user-attachments/assets/a72334df-5f17-441f-a16b-5cc91a2c58fe)
 
 ### Workflow of Docker: "docker run -it <some-image>" - explained
 1. Execute `docker run -it <some-image>` in the terminal.

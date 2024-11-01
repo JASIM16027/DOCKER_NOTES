@@ -8,6 +8,8 @@
 
 - An operating system (OS) consists of two primary layers: the application layer and the kernel layer. Each layer has distinct responsibilities and interacts in specific ways to ensure the smooth functioning of the computer system.
 
+  ![image](https://github.com/user-attachments/assets/48036c84-552a-4a2c-bd46-21955ad19be4)
+
 ### Application Layer
 - **Role**: The application layer serves as the interface between the user and the operating system. It includes all the user-facing applications and utilities that perform various tasks.
 - **Components**: This layer comprises software applications like web browsers, word processors, and media players, as well as system utilities that manage files, configure settings, and monitor system performance.

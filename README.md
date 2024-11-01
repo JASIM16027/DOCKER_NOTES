@@ -426,6 +426,9 @@ The diagram illustrates how the operating system'S kernel interacts with softwar
 The diagram explains two important Linux kernel features used to manage system resources in containers or isolated environments: **Namespacing** and **Control Groups (cgroups)**.
 
 ### 1. **Namespacing**:
+
+![image](https://github.com/user-attachments/assets/b77b68fc-fd5b-48b3-a184-be1d89766e82)
+
    Namespacing is a feature used to isolate system resources for processes or groups of processes. This ensures that different processes don't interfere with each other and operate within their own confined space. Here's how different resources are isolated:
    
    - **Processes**: Each process or group of processes operates as if they are the only ones in the system. This ensures process isolation, so that one process doesn’t see or interfere with another.

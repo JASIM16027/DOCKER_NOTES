@@ -51,8 +51,39 @@ In summary, this diagram illustrates how different Linux distributions share a c
 - The installation process sets up the necessary files and configurations for the software to be executed.
 
 ### How does the software load in RAM?
-- When a program is executed, the OS loads the necessary parts of the software from the hard disk into RAM.
-- The instructions and data reside in RAM during execution, allowing the CPU to access them quickly.
+To understand how software loads into RAM, let’s break down the process with a simplified text diagram:
+
+  - **Application Request** :  **User** initiates a request to open a software application (e.g., a web browser).
+  - **Operating System (OS) Receives Request** : The **OS** receives this request and checks if the application file exists on the storage (e.g., hard drive or SSD). 
+
+  -  **Loading the Application from Disk**  
+       - The OS locates the application on the storage disk.
+       - It loads the application’s **executable code** and **data** into **RAM** in small blocks (pages).
+  
+
+  -  **Allocating Memory in RAM**  
+     - The OS allocates space in RAM for the application’s code, data, and runtime variables.
+     - This involves dividing RAM into pages, where each part of the application is stored in a specific page.
+  
+  -  **Loading Shared Libraries (if needed)**  
+     - Some applications rely on **shared libraries** (e.g., graphics libraries) that may already be in RAM. 
+     - If the libraries are not in RAM, they are loaded from disk into RAM and linked to the application.
+    
+  - 6. **Setting Up Process Control Block (PCB)**  
+     - The OS creates a **Process Control Block (PCB)** to keep track of the application’s state, including its memory locations, priority, and resources.
+     - The PCB is stored in RAM for quick access by the CPU scheduler.
+     - 
+  - 7. **CPU Accesses RAM and Starts Execution**  
+     - The OS schedules the application to run, and the **CPU** begins fetching the application code from RAM.
+     - The **CPU** reads instructions from the RAM, executes them, and loads additional parts of the application from the disk if needed (paging).
+
+    ```
+    User Action --> Application Request --> OS File System Check --> Disk Access --> Load Application Code to RAM 
+    --> Allocate Pages in RAM --> Load Shared Libraries (if needed) --> Create Process Control Block (PCB) 
+    --> CPU Accesses RAM --> Start Execution
+    ```
+  - When an application loads, the OS reads the program from storage, allocates memory in RAM, loads necessary libraries, and tracks the process through a PCB. The CPU then accesses RAM to execute the application, fetching and processing each instruction as needed.
+
 
 ### 32-bit and 64-bit Computers
 - **32-bit:** Processes data in 32-bit chunks, limited to 4 GB of RAM.

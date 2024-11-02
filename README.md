@@ -69,11 +69,11 @@ To understand how software loads into RAM, let’s break down the process with a
      - Some applications rely on **shared libraries** (e.g., graphics libraries) that may already be in RAM. 
      - If the libraries are not in RAM, they are loaded from disk into RAM and linked to the application.
     
-  - 6. **Setting Up Process Control Block (PCB)**  
+  -  **Setting Up Process Control Block (PCB)**  
      - The OS creates a **Process Control Block (PCB)** to keep track of the application’s state, including its memory locations, priority, and resources.
      - The PCB is stored in RAM for quick access by the CPU scheduler.
      - 
-  - 7. **CPU Accesses RAM and Starts Execution**  
+  -  **CPU Accesses RAM and Starts Execution**  
      - The OS schedules the application to run, and the **CPU** begins fetching the application code from RAM.
      - The **CPU** reads instructions from the RAM, executes them, and loads additional parts of the application from the disk if needed (paging).
 

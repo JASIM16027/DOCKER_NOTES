@@ -465,6 +465,9 @@ The diagram illustrates how the operating system'S kernel interacts with softwar
 
 ## **Namespacing** and **Control Groups (cgroups)**
 
+  - **Cgroups** = limits how much you can use;
+  - **Namespaces** = limits what you can see (and therefore use).
+
 ![image](https://github.com/user-attachments/assets/53b0e06c-8571-418b-9a76-e09f0415dcb9)
 
 
